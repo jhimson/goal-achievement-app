@@ -22,7 +22,7 @@ import { userLogin } from '../actions/userActions';
 
 // ! VALIDATION SCHEMAS
 const schema = yup.object().shape({
-  email: yup.string().email().required('Email is required*'),
+  username: yup.string().required('Username is required*'),
   password: yup.string().required('Password is required*'),
 });
 // ! ------------------------------------------------------------------>
@@ -63,16 +63,16 @@ const LoginPage = () => {
             <h1 className="text-2xl font-bold text-center">Account Login</h1>
             <div>
               <label htmlFor="username" className="font-semibold">
-                Email:
+                Username:
               </label>
               <input
                 ref={register}
                 type="text"
-                name="email"
+                name="username"
                 className="block w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500"
               />
               <span className="font-semibold text-red-700">
-                {errors.email && errors.email.message}
+                {errors.username && errors.username.message}
               </span>
             </div>
             <div>
