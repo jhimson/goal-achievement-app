@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 //! COMPONENTS
 import Layout from '../components/Layout';
+import Sidebar from '../components/Sidebar';
 //! ----------------------------------------------------->
 
 const DashboardPage = () => {
@@ -19,10 +20,17 @@ const DashboardPage = () => {
   return (
     <Layout>
       <div className="mb-2 bg-gray-100 page-content">
-        <div className="flex flex-col items-start justify-center lg:space-x-5 lg:p-10 lg:flex-row">
-          <div className="flex flex-col w-full space-y-2">
+        <div className="flex flex-col items-start justify-center lg:flex-row">
+          <div className="flex flex-col w-full lg:flex-row">
             <div>
-              <h1>Dashboard</h1>
+              <Sidebar active="dashboard" />
+            </div>
+            <div className="w-full">
+              <div className="w-full h-full p-10 bg-gray-200">
+                <div className="container h-full p-5 bg-gray-300 rounded-lg">
+                  <h1>Dashboard</h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
