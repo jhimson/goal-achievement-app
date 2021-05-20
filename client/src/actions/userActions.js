@@ -18,7 +18,7 @@ const {
 } = userConstants;
 
 export const registerNewUser = ({
-  email,
+  username,
   firstname,
   lastname,
   password,
@@ -34,7 +34,7 @@ export const registerNewUser = ({
 
     const { data } = await Axios.post(
       'http://localhost:5000/api/v1/users',
-      { user_id, firstname, lastname, email, password },
+      { user_id, firstname, lastname, username, password },
       config
     );
 
@@ -53,7 +53,7 @@ export const registerNewUser = ({
   }
 };
 
-export const userLogin = ({ email, password }) => async (dispatch) => {
+export const userLogin = ({ username, password }) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export const userLogin = ({ email, password }) => async (dispatch) => {
 
     const { data } = await Axios.post(
       'http://localhost:5000/api/v1/users/login',
-      { email, password },
+      { username, password },
       config
     );
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
