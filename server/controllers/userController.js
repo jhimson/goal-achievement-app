@@ -5,10 +5,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const {
   fetchUsers,
-  findEmail,
   createNewUser,
   findUser,
-  createNewMember,
 } = require("../db/models/userModel");
 const { generateToken } = require("../utils/auth");
 
@@ -29,20 +27,17 @@ const getUsers = asyncHandler(async (req, res) => {
 // ? @Route          POST /api/v1/users
 // ? @Access         Private/Admin
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  const userExists = await findEmail(req.body.email);
+  const userExists = await findUser(req.body.username);
 
   if (userExists.rowCount) {
     res.status(400);
-    throw new Error("Email already exists!");
+    throw new Error("Username already exists!");
   }
 
   const newUser = await createNewUser(req.body);
 
   const { rows, rowCount } = newUser;
-  const { user_id, firstname, lastname, email } = rows[0];
-
-  const newMember = await createNewMember(user_id, uuidv4());
+  const { user_id, firstname, lastname, username } = rows[0];
 
   if (rowCount) {
     res.status(201).json({
@@ -50,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
       user_id,
       firstname,
       lastname,
-      email,
+      username,
       token: generateToken(user_id),
     });
   } else {
@@ -60,16 +55,15 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  const { rowCount, rows } = await findUser(email);
+  const { username, password } = req.body;
+  const { rowCount, rows } = await findUser(username);
   const userData = rows[0];
   if (rowCount && bcrypt.compareSync(password, userData.password)) {
     res.json({
       user_id: userData.user_id,
       firstname: userData.firstname,
       lastname: userData.lastname,
-      email: userData.email,
-      isAdmin: userData.is_admin,
+      username: userData.username,
       token: generateToken(userData.user_id),
     });
   } else {
