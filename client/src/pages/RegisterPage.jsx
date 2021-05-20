@@ -19,7 +19,7 @@ import { registerNewUser, resetNewUserInfo } from '../actions/userActions';
 const schema = yup.object().shape({
   firstname: yup.string().required('Firstname is required*'),
   lastname: yup.string().required('Lastname is required*'),
-  email: yup.string().email().required('Email is required*'),
+  username: yup.string().required('Username is required*'),
   password: yup.string().min(5).required('Password is required*'),
 });
 
@@ -84,17 +84,17 @@ const RegisterPage = () => {
               </span>
             </div>
             <div>
-              <label htmlFor="email" className="font-semibold">
-                Email:
+              <label htmlFor="username" className="font-semibold">
+                Username:
               </label>
               <input
                 ref={register}
                 type="text"
-                name="email"
+                name="username"
                 className="block w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500"
               />
               <span className="font-semibold text-red-700">
-                {errors.email && errors.email.message}
+                {errors.username && errors.username.message}
               </span>
             </div>
             <div>
