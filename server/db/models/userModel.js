@@ -17,7 +17,7 @@ const createNewUser = async (user) => {
   const hashedPassword = bcrypt.hashSync(password, salt);
 
   return db.query({
-    text: `INSERT INTO tbl_users (user_id, firstname, lastname, username, password, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, DEFAULT, DEFAULT, DEFAULT) returning *`,
+    text: `INSERT INTO tbl_users (user_id, firstname, lastname, username, password, created_at, updated_at) VALUES ($1, $2, $3, $4, $5,  DEFAULT, DEFAULT) returning *`,
     values: [user_id, firstname, lastname, username, hashedPassword],
   });
 };
