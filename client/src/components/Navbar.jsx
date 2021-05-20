@@ -21,16 +21,18 @@ const Navbar = () => {
 
   //! COMPONENT STATE
   const [toggle, setToggle] = useState(false);
-  const [userEmail, setUserEmail] = useState(null);
+  const [username, setUsername] = useState(null);
   // !---------------------------------------------------------------------->
 
   // ! GLOBAL STATE VARIABLES
-  const email = useSelector((state) => state.userLogin.userLoginInfo.email);
+  const userName = useSelector(
+    (state) => state.userLogin.userLoginInfo.username
+  );
   // !---------------------------------------------------------------------->
 
   useEffect(() => {
-    if (email !== null) setUserEmail(email);
-  }, [email]);
+    if (userName !== null) setUsername(userName);
+  }, [userName]);
   return (
     //! Main navbar wrapper ~~~START
     <div className="flex flex-col justify-between py-3 mx-auto bg-black lg:flex-row lg:p-0 navbar-container">
@@ -89,8 +91,8 @@ const Navbar = () => {
               <li>
                 <span className="flex space-x-2">
                   <FaRegUserCircle size="3em" />
-                  {userEmail !== null ? (
-                    <p className="self-center">{userEmail}</p>
+                  {username !== null ? (
+                    <p className="self-center">{username}</p>
                   ) : null}
                 </span>
               </li>
