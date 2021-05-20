@@ -13,7 +13,10 @@ import Layout from '../components/Layout';
 import FlashMessage from '../components/FlashMessage';
 
 // ? actions
-import { registerNewUser, resetNewUserInfo } from '../actions/userActions';
+import {
+  registerNewUser,
+  resetNewUserInfo,
+} from '../redux/actions/userActions';
 
 // ? form validation schema
 const schema = yup.object().shape({

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Axios from 'axios';
 
-import { userConstants } from '../constants/userConstants';
+import { userConstants } from '../types';
 
 const { uuid } = require('uuidv4');
 

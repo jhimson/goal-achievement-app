@@ -1,8 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { userRegisterReducer, userLoginReducer } from './reducers/userReducer';
+import rootReducer from './reducers';
 
 const middleware = [thunk];
 
@@ -14,13 +14,8 @@ const initialState = {
   },
 };
 
-const reducer = combineReducers({
-  userRegister: userRegisterReducer,
-  userLogin: userLoginReducer,
-});
-
 const store = createStore(
-  reducer,
+  rootReducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );

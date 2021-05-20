@@ -10,7 +10,7 @@ import LOGO from '../assets/images/j•p.svg';
 // import {Link as ScrollLink} from 'react-scroll'
 
 //! ACTIONS
-import { userLogout } from '../actions/userActions';
+import { userLogout } from '../redux/actions/userActions';
 // !------------------------------------------------------------------------>
 
 const Navbar = () => {

@@ -1,4 +1,4 @@
-import { userConstants } from '../constants/userConstants';
+import { userConstants } from '../types';
 
 const {
   USER_REGISTER_REQUEST,

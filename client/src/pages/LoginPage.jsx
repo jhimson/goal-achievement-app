@@ -17,7 +17,7 @@ import FlashMessage from '../components/FlashMessage';
 // ! ------------------------------------------------------------------>
 
 // ! ACTIONS
-import { userLogin } from '../actions/userActions';
+import { userLogin } from '../redux/actions/userActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
