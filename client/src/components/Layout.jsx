@@ -3,11 +3,11 @@ import React from 'react';
 // components
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Sidenav from './Sidenav';
 
-const Layout = ({ children }) => (
+const Layout = ({ children, active }) => (
   <div>
-    <Navbar />
-    {children}
+    <Sidenav content={children} />
     <Footer />
   </div>
 );
