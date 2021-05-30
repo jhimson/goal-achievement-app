@@ -52,7 +52,7 @@ const LoginPage = () => {
   }, [token, history]);
 
   return (
-    <Layout>
+    <Layout active="loginPage">
       <div className="flex items-center justify-center h-screen">
         <div className="w-full h-auto p-5 bg-gray-200 rounded-lg md:w-3/4 lg:w-1/2 xl:w-1/4">
           {error ? <FlashMessage type="danger" message={error} /> : null}

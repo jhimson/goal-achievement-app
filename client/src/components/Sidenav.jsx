@@ -1,16 +1,26 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import logo from '../assets/images/nav-logo.png';
 
+//! ACTIONS
+import { userLogout } from '../redux/actions/userActions';
+// !------------------------------------------------------------------------>
+
 const Sidenav = ({ content }) => {
+  //! COMPONENT STATE
   const [sideNavIsVisible, setSideNavIsVisible] = useState(false);
+  // !---------------------------------------------------------------------->
+
+  const dispatch = useDispatch();
+
   return (
     <div className="relative min-h-screen md:flex">
       {/* mobile menu bar */}
       <div className="flex justify-between text-gray-100 bg-gray-800 md:hidden">
         {/* logo */}
-        <a href="#" className="">
+        <a href="#" className="py-2">
           <img src={logo} alt="" className="w-64 h-15" />
         </a>
         {/* mobile menu button */}
@@ -51,7 +61,7 @@ const Sidenav = ({ content }) => {
             href=""
             className="block px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
           >
-            Home
+            Dashboard
           </a>
           <a
             href=""
@@ -68,14 +78,17 @@ const Sidenav = ({ content }) => {
           <a
             href=""
             className="block px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            onClick={() => dispatch(userLogout())}
           >
-            Pricing
+            Logout
           </a>
         </nav>
       </div>
 
       {/* content */}
-      <div className="flex-1 text-2xl font-bold">{content}</div>
+      <div className="flex-1 min-h-screen text-2xl font-bold bg-red-200">
+        {content}
+      </div>
     </div>
   );
 };
