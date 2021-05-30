@@ -2,6 +2,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  AiOutlinePoweroff,
+  AiOutlineHistory,
+  AiOutlineLineChart,
+  AiOutlineTrophy,
+  AiOutlineBulb,
+} from 'react-icons/ai';
+import { HiOutlineExclamation } from 'react-icons/hi';
+import { IoBuildOutline } from 'react-icons/io5';
+import { MdDashboard } from 'react-icons/md';
 import logo from '../assets/images/nav-logo.png';
 
 //! ACTIONS
@@ -56,37 +66,69 @@ const Sidenav = ({ content }) => {
           <img src={logo} alt="" />
         </a>
         {/* nav */}
-        <nav>
+        <nav className="space-y-2">
           <a
             href=""
-            className="block px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className="flex space-x-2 items-center px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
           >
-            Dashboard
+            <MdDashboard size="2em" />
+            <span>Dashboard</span>
           </a>
           <a
             href=""
-            className="block px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
           >
-            About
+            <AiOutlineHistory size="2em" />
+            <span>Short term goals</span>
           </a>
           <a
             href=""
-            className="block px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className="text-white flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
           >
-            Features
+            <AiOutlineLineChart size="2em" />
+            <span>Long term goals</span>
           </a>
           <a
             href=""
-            className="block px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+          >
+            <AiOutlineTrophy size="2em" />
+            <span>Achievements</span>
+          </a>
+          <a
+            href=""
+            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+          >
+            <IoBuildOutline size="2em" />
+            <span>Needs to improve</span>
+          </a>
+          <a
+            href=""
+            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+          >
+            <HiOutlineExclamation size="2em" />
+            <span>Mistakes/Regrets in life</span>
+          </a>
+          <a
+            href=""
+            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+          >
+            <AiOutlineBulb size="2em" />
+            <span>Lesson learned</span>
+          </a>
+          <a
+            href=""
+            className="text-red-500 flex items-center space-x-2 px-4 py-2.5 hover:bg-red-700 rounded hover:text-white transition duration-200"
             onClick={() => dispatch(userLogout())}
           >
-            Logout
+            <AiOutlinePoweroff size="2em" />
+            <span>Logout</span>
           </a>
         </nav>
       </div>
 
       {/* content */}
-      <div className="flex-1 min-h-screen text-2xl font-bold bg-red-200">
+      <div className="flex-1 min-h-screen text-2xl font-bold bg-gray-200">
         {content}
       </div>
     </div>
