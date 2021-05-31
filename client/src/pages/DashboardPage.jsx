@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 
 //! COMPONENTS
 import Layout from '../components/Layout';
-// import Sidebar from '../components/Sidebar';
 import Sidenav from '../components/Sidenav';
 //! ----------------------------------------------------->
 

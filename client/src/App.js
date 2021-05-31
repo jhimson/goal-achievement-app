@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PageNotFound from './pages/PageNotFound';
 import DashboardPage from './pages/DashboardPage';
+import ShortTermGoalsPage from './pages/ShortTermGoalsPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" component={LoginPage} exact />
       <Route path="/register" component={RegisterPage} exact />
       <Route path="/dashboard" component={DashboardPage} exact />
+      <Route path="/short-term" component={ShortTermGoalsPage} exact />
       <Route component={PageNotFound} exact />
     </Switch>
   );
