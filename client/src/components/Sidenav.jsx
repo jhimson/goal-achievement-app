@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   AiOutlinePoweroff,
   AiOutlineHistory,
@@ -22,7 +23,7 @@ const Sidenav = ({ content }) => {
   //! COMPONENT STATE
   const [sideNavIsVisible, setSideNavIsVisible] = useState(false);
   // !---------------------------------------------------------------------->
-
+  const history = useHistory();
   const dispatch = useDispatch();
 
   return (
@@ -68,15 +69,19 @@ const Sidenav = ({ content }) => {
         {/* nav */}
         <nav className="space-y-2">
           <a
-            href=""
+            href="#"
             className="flex space-x-2 items-center px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
           >
             <MdDashboard size="2em" />
             <span>Dashboard</span>
           </a>
           <a
-            href=""
+            href="#"
             className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/short-term-goals');
+            }}
           >
             <AiOutlineHistory size="2em" />
             <span>Short term goals</span>

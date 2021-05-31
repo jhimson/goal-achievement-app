@@ -15,7 +15,7 @@ function App() {
       <Route path="/" component={LoginPage} exact />
       <Route path="/register" component={RegisterPage} exact />
       <Route path="/dashboard" component={DashboardPage} exact />
-      <Route path="/short-term" component={ShortTermGoalsPage} exact />
+      <Route path="/short-term-goals" component={ShortTermGoalsPage} exact />
       <Route component={PageNotFound} exact />
     </Switch>
   );

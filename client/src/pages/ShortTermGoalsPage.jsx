@@ -20,7 +20,7 @@ const ShortTermGoalsPage = () => {
     <Layout active="shortTermGoalsPage">
       <div className="flex min-h-full bg-gray-200">
         <div className="w-1/2 p-5 bg-green-200">
-          <h1>Short Term Goals</h1>
+          <h1>Short Term Goalszzz</h1>
           <input type="text" />
         </div>
         <div className="w-1/2 bg-blue-500">
