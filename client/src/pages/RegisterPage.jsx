@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from '../assets/images/login-logo.png';
+import logo from '../assets/images/login-register-logo.png';
 
 // ? components
 import Layout from '../components/Layout';
@@ -54,7 +54,7 @@ const RegisterPage = () => {
           {message ? <FlashMessage type="success" message={message} /> : null}
 
           <div>
-            <img src={logo} alt="" className="w-full h-72" />
+            <img src={logo} alt="" className="p-10 mb-10" />
           </div>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-2xl font-bold text-center">Account Register</h1>

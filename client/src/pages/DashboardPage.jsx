@@ -20,8 +20,14 @@ const DashboardPage = () => {
   }, [token, history]);
   return (
     <Layout active="dashboardPage">
-      <div>
-        <h1>Dashboard</h1>
+      <div className="flex min-h-full bg-gray-200">
+        <div className="w-1/2 p-5 bg-green-200">
+          <h1>Short Term Goals</h1>
+          <input type="text" />
+        </div>
+        <div className="w-1/2 bg-blue-500">
+          <h1>List</h1>
+        </div>
       </div>
       {/* <div className="w-full">
           <div className="w-full h-full p-10 bg-gray-200">

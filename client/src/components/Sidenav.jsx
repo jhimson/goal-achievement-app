@@ -83,7 +83,7 @@ const Sidenav = ({ content }) => {
           </a>
           <a
             href=""
-            className="text-white flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
           >
             <AiOutlineLineChart size="2em" />
             <span>Long term goals</span>

@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from '../assets/images/login-logo.png';
+import logo from '../assets/images/login-register-logo.png';
 
 // ! COMPONENTS
 import Layout from '../components/Layout';
@@ -57,7 +57,7 @@ const LoginPage = () => {
         <div className="w-full h-auto p-5 bg-gray-200 rounded-lg md:w-3/4 lg:w-1/2 xl:w-1/4">
           {error ? <FlashMessage type="danger" message={error} /> : null}
           <div>
-            <img src={logo} alt="" className="w-full h-72" />
+            <img src={logo} alt="" className="p-10 mb-10" />
           </div>
           <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-2xl font-bold text-center">Account Login</h1>
