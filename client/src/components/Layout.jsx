@@ -9,7 +9,9 @@ import Sidebar from './Sidebar';
 
 const Layout = ({ children, active }) => {
   // ! GLOBAL STATE VARIABLE (STORE)
-  const token = useSelector((state) => state.userLogin.userLoginInfo.token);
+  const token = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.token
+  );
   // ! -------------------------------------------->
   return (
     <>

@@ -7,9 +7,9 @@ import rootReducer from './reducers';
 const middleware = [thunk];
 
 const initialState = {
-  userRegister: { userRegisterInfo: { message: null }, error: null },
-  userLogin: {
-    userLoginInfo: { message: null, token: null, email: null },
+  userRegistered: { userRegisteredInfo: { message: null }, error: null },
+  userLoggedIn: {
+    userLoggedInInfo: { message: null, token: null },
     error: null,
   },
 };

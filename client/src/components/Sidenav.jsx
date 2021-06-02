@@ -71,6 +71,10 @@ const Sidenav = ({ content }) => {
           <a
             href="#"
             className="flex space-x-2 items-center px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/dashboard');
+            }}
           >
             <MdDashboard size="2em" />
             <span>Dashboard</span>

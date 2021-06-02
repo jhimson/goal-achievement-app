@@ -5,8 +5,8 @@ import { userRegisterReducer, userLoginReducer } from './userReducer';
 //!
 
 const rootReducer = combineReducers({
-  userRegister: userRegisterReducer,
-  userLogin: userLoginReducer,
+  userRegistered: userRegisterReducer,
+  userLoggedIn: userLoginReducer,
 });
 
 export default rootReducer;

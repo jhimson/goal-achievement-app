@@ -35,8 +35,10 @@ const LoginPage = () => {
   const history = useHistory();
 
   // ! GLOBAL STATE VARIABLES (Store)
-  const error = useSelector((state) => state.userLogin.error);
-  const token = useSelector((state) => state.userLogin.userLoginInfo.token);
+  const error = useSelector((state) => state.userLoggedIn.error);
+  const token = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.token
+  );
   // ! ----------------------------------------------------------------->
 
   // ! FUNCTIONS

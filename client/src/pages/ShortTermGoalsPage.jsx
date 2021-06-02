@@ -11,7 +11,9 @@ import Layout from '../components/Layout';
 const ShortTermGoalsPage = () => {
   const history = useHistory();
   // ! GLOBAL STATE VARIABLE (STORE)
-  const token = useSelector((state) => state.userLogin.userLoginInfo.token);
+  const token = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.token
+  );
   // ! -------------------------------------------->
 
   useEffect(() => {
