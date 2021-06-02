@@ -6,10 +6,16 @@ import rootReducer from './reducers';
 
 const middleware = [thunk];
 
+const userLoggedInInfoStoredFromStorage = localStorage.getItem(
+  'userLoggedInInfo'
+)
+  ? JSON.parse(localStorage.getItem('userLoggedInInfo'))
+  : { message: null, token: null };
+
 const initialState = {
   userRegistered: { userRegisteredInfo: { message: null }, error: null },
   userLoggedIn: {
-    userLoggedInInfo: { message: null, token: null },
+    userLoggedInInfo: userLoggedInInfoStoredFromStorage,
     error: null,
   },
 };
