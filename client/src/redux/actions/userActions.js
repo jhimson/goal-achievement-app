@@ -70,7 +70,7 @@ export const userLogin = ({ username, password }) => async (dispatch) => {
     );
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    localStorage.setItem('userLoggedIn', JSON.stringify(data));
+    localStorage.setItem('userLoggedInInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
