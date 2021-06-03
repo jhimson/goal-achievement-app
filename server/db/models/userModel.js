@@ -12,7 +12,7 @@ const findUser = (username) =>
 
 const fetchUsers = () => db.query("SELECT * FROM tbl_users");
 
-const createNewUser = async (user) => {
+const createNewUser = (user) => {
   const { user_id, firstname, lastname, username, password } = user;
   const hashedPassword = bcrypt.hashSync(password, salt);
 

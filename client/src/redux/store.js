@@ -18,6 +18,7 @@ const initialState = {
     userLoggedInInfo: userLoggedInInfoStoredFromStorage,
     error: null,
   },
+  newShortTermGoal: { error: null, goal: {} },
 };
 
 const store = createStore(

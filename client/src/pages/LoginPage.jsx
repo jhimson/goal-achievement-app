@@ -13,7 +13,6 @@ import logo from '../assets/images/login-register-logo.png';
 // ! COMPONENTS
 import Layout from '../components/Layout';
 import FlashMessage from '../components/FlashMessage';
-
 // ! ------------------------------------------------------------------>
 
 // ! ACTIONS

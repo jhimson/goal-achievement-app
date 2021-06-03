@@ -1,24 +1,49 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 //! COMPONENTS
 import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
+// ! ACTIONS
+import { addNewShortTermGoal } from '../redux/actions/goalActions';
+// ! ------------------------------------------------------------------>
+
+// ! VALIDATION SCHEMAS
+const schema = yup.object().shape({
+  goal: yup.string().required('Goal cannot be blank!'),
+});
+// ! ------------------------------------------------------------------>
+
 const ShortTermGoalsPage = () => {
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const history = useHistory();
+  const dispatch = useDispatch();
   // ! GLOBAL STATE VARIABLE (STORE)
   const token = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.token
+  );
+  const userId = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
   // ! -------------------------------------------->
 
   useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
+
+  const onSubmit = ({ goal }) => {
+    dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
+  };
   return (
     <Layout active="shortTermGoalsPage">
       <div className="flex flex-col items-center min-h-full bg-gray-100">
@@ -27,14 +52,19 @@ const ShortTermGoalsPage = () => {
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
               Input short term goal
             </h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col items-center text-center">
                 <input
                   type="text"
                   id="goal"
                   className="block w-full px-2 py-1 mb-3 font-mono text-lg rounded lg:w-1/2 focus:outline-none"
                   placeholder="Input goal here..."
+                  ref={register}
+                  name="goal"
                 />
+                <span className="text-lg font-semibold text-red-700">
+                  {errors.goal && errors.goal.message}
+                </span>
                 <button className="px-4 py-1 text-lg font-bold duration-200 transform bg-blue-400 rounded w-52 focus:outline-none hover:scale-125">
                   Submit
                 </button>
