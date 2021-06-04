@@ -9,4 +9,7 @@ const createNewShortTermGoal = (data) => {
   });
 };
 
-module.exports = { createNewShortTermGoal };
+const fetchShortTermGoals = () =>
+  db.query(`SELECT * FROM tbl_short_term_goals`);
+
+module.exports = { createNewShortTermGoal, fetchShortTermGoals };

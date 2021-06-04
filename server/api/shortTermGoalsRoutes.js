@@ -5,8 +5,9 @@ const Router = express.Router();
 
 const {
   addNewShortTermGoal,
+  getAllShortTermGoals,
 } = require("../controllers/shortTermGoalsController");
 
-Router.route("/").post(addNewShortTermGoal);
+Router.route("/").post(addNewShortTermGoal).get(getAllShortTermGoals);
 
 module.exports = Router;

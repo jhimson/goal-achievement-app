@@ -7,12 +7,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { IoTrash } from 'react-icons/io5';
+
 //! COMPONENTS
 import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
-import { addNewShortTermGoal } from '../redux/actions/goalActions';
+import {
+  addNewShortTermGoal,
+  getShortTermGoals,
+} from '../redux/actions/goalActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
@@ -35,7 +40,15 @@ const ShortTermGoalsPage = () => {
   const userId = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
+
+  const shortTermGoals = useSelector(
+    (state) => state.shortTermGoalsList.goals.data
+  );
   // ! -------------------------------------------->
+
+  useEffect(() => {
+    dispatch(getShortTermGoals());
+  }, [dispatch]);
 
   useEffect(() => {
     if (token === null) history.push('/');
@@ -78,57 +91,28 @@ const ShortTermGoalsPage = () => {
               <tr className="text-sm leading-normal text-center text-gray-600 uppercase bg-gray-200 lg:text-lg">
                 <th className="px-8 py-4 text-left bg-gray-200">Description</th>
                 <th className="px-8 py-4 text-left bg-gray-200">Date</th>
+                <th className="px-8 py-4 text-center bg-gray-200">Action</th>
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  Move to a studio apartment with laundry and dryer inside
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-              </tr>
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  Finish my web application projects and developer portfolio
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-              </tr>
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  Apply for a Sofrware developer job
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-              </tr>
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  Create a Youtube channel for boxing
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-              </tr>
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  Study more trading strategies for stock market
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-              </tr>
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  Develop a self discipline to work out daily
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-              </tr>
+              {shortTermGoals.map(({ id, description }) => (
+                <tr
+                  className="border-b border-gray-200 hover:bg-gray-100"
+                  key={id}
+                >
+                  <td className="px-6 py-3 text-left cursor-pointer">
+                    {description}
+                  </td>
+                  <td className="px-6 py-3 text-left cursor-pointer">
+                    05/31/2021
+                  </td>
+                  <td className="flex items-center justify-center h-12 text-red-500">
+                    <span className="duration-200 transform cursor-pointer hover:scale-125">
+                      <IoTrash size="1.5em" />
+                    </span>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
