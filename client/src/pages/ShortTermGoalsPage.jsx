@@ -56,6 +56,7 @@ const ShortTermGoalsPage = () => {
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
+    reset();
   };
   return (
     <Layout active="shortTermGoalsPage">
@@ -78,7 +79,7 @@ const ShortTermGoalsPage = () => {
                 <span className="text-lg font-semibold text-red-700">
                   {errors.goal && errors.goal.message}
                 </span>
-                <button className="px-4 py-1 text-lg font-bold duration-200 transform bg-blue-400 rounded w-52 focus:outline-none hover:scale-125">
+                <button className="px-4 py-1 text-lg font-bold duration-300 transform bg-blue-400 rounded w-52 focus:outline-none hover:scale-125">
                   Submit
                 </button>
               </div>
