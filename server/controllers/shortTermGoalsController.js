@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 const {
   createNewShortTermGoal,
   fetchShortTermGoals,
+  destroyOneShortTermGoal,
 } = require("../db/models/shortTermGoalsModel");
 
 // ? @Description    Insert new short term goal
@@ -36,7 +37,23 @@ const getAllShortTermGoals = asyncHandler(async (req, res) => {
   }
 });
 
+// ? @Description    Delete one short term goal
+// ? @Route          DEL /api/v1/short-term-goals
+// ? @Access         Private/User
+const deleteShortTermGoal = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { rows } = await destroyOneShortTermGoal(id);
+
+  if (rows) {
+    res.status(200).json({ message: `Successfully deleted goal`, data: rows });
+  } else {
+    res.status(500);
+    throw new Error("Failed to delete short term goal");
+  }
+});
+
 module.exports = {
   addNewShortTermGoal,
   getAllShortTermGoals,
+  deleteShortTermGoal,
 };

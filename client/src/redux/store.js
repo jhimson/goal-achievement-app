@@ -19,6 +19,7 @@ const initialState = {
     error: null,
   },
   newShortTermGoal: { error: null, goal: {} },
+  shortTermGoalDeleted: { error: null, goal: {} },
   shortTermGoalsList: { error: null, goals: { data: [] } },
 };
 

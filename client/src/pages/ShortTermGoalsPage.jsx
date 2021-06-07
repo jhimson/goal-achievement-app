@@ -17,6 +17,7 @@ import Layout from '../components/Layout';
 import {
   addNewShortTermGoal,
   getShortTermGoals,
+  deleteShortTermGoal,
 } from '../redux/actions/goalActions';
 // ! ------------------------------------------------------------------>
 
@@ -44,6 +45,12 @@ const ShortTermGoalsPage = () => {
   const shortTermGoals = useSelector(
     (state) => state.shortTermGoalsList.goals.data
   );
+
+  const newShortTermGoal = useSelector((state) => state.newShortTermGoal.goal);
+  const deletedShortTermGoal = useSelector(
+    (state) => state.shortTermGoalDeleted.goal
+  );
+
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -53,6 +60,10 @@ const ShortTermGoalsPage = () => {
   useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
+
+  useEffect(() => {
+    dispatch(getShortTermGoals());
+  }, [dispatch, newShortTermGoal, deletedShortTermGoal]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
@@ -109,7 +120,12 @@ const ShortTermGoalsPage = () => {
                   </td>
                   <td className="flex items-center justify-center h-12 text-red-500">
                     <span className="duration-200 transform cursor-pointer hover:scale-125">
-                      <IoTrash size="1.5em" />
+                      <IoTrash
+                        size="1.5em"
+                        onClick={() => {
+                          dispatch(deleteShortTermGoal(id));
+                        }}
+                      />
                     </span>
                   </td>
                 </tr>

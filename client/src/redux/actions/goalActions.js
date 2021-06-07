@@ -9,6 +9,9 @@ const {
   ADD_SHORT_TERM_GOAL_REQUEST,
   ADD_SHORT_TERM_GOAL_SUCCESS,
   ADD_SHORT_TERM_GOAL_FAIL,
+  REMOVE_SHORT_TERM_GOAL_REQUEST,
+  REMOVE_SHORT_TERM_GOAL_SUCCESS,
+  REMOVE_SHORT_TERM_GOAL_FAIL,
   SHORT_TERM_GOALS_LIST_REQUEST,
   SHORT_TERM_GOALS_LIST_SUCCESS,
   SHORT_TERM_GOALS_LIST_FAIL,
@@ -37,6 +40,33 @@ export const addNewShortTermGoal = ({ user_id, description }) => async (
   } catch (error) {
     dispatch({
       type: ADD_SHORT_TERM_GOAL_FAIL,
+      payload:
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteShortTermGoal = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    dispatch({ type: REMOVE_SHORT_TERM_GOAL_REQUEST });
+
+    const { data } = await Axios.delete(
+      `http://localhost:5000/api/v1/short-term-goals/${id}`,
+      config
+    );
+
+    dispatch({ type: REMOVE_SHORT_TERM_GOAL_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: REMOVE_SHORT_TERM_GOAL_FAIL,
       payload:
         error.response && error.response.data.error.message
           ? error.response.data.error.message

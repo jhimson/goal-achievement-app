@@ -12,4 +12,14 @@ const createNewShortTermGoal = (data) => {
 const fetchShortTermGoals = () =>
   db.query(`SELECT * FROM tbl_short_term_goals`);
 
-module.exports = { createNewShortTermGoal, fetchShortTermGoals };
+const destroyOneShortTermGoal = (id) =>
+  db.query({
+    text: `DELETE FROM tbl_short_term_goals WHERE id = $1 returning *`,
+    values: [id],
+  });
+
+module.exports = {
+  createNewShortTermGoal,
+  fetchShortTermGoals,
+  destroyOneShortTermGoal,
+};
