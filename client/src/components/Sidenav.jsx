@@ -58,7 +58,7 @@ const Sidenav = ({ content }) => {
 
       {/* sidebar */}
       <div
-        className={`absolute inset-y-0 left-0 w-64 px-2 space-y-6 text-blue-100 transition duration-200 ease-in-out transform ${
+        className={`absolute z-50 inset-y-0 left-0 w-64 px-2 space-y-6 text-blue-100 transition duration-200 ease-in-out transform ${
           sideNavIsVisible ? null : '-translate-x-full'
         } bg-gray-900 py-7 md:relative md:translate-x-0`}
       >

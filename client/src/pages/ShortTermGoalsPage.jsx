@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import { IoTrash } from 'react-icons/io5';
 
 //! COMPONENTS
 import Layout from '../components/Layout';
+import ConfirmDeleteShortTermGoalModal from '../components/ConfirmDeleteShortTermGoalModal';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
@@ -28,6 +29,10 @@ const schema = yup.object().shape({
 // ! ------------------------------------------------------------------>
 
 const ShortTermGoalsPage = () => {
+  // ! COMPONENT STATE VARIABLES
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [idToDelete, setIdToDelete] = useState(null);
+  // ! ------------------------------------------------------------------>
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -53,6 +58,8 @@ const ShortTermGoalsPage = () => {
 
   // ! -------------------------------------------->
 
+  // ! FUNCTIONS
+
   useEffect(() => {
     dispatch(getShortTermGoals());
   }, [dispatch]);
@@ -69,9 +76,15 @@ const ShortTermGoalsPage = () => {
     dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
     reset();
   };
+  // ! -------------------------------------------->
   return (
     <Layout active="shortTermGoalsPage">
-      <div className="flex flex-col items-center min-h-full bg-gray-100">
+      <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+        <ConfirmDeleteShortTermGoalModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          deleteGoal={() => dispatch(deleteShortTermGoal(idToDelete))}
+        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-gray-300 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
@@ -123,7 +136,8 @@ const ShortTermGoalsPage = () => {
                       <IoTrash
                         size="1.5em"
                         onClick={() => {
-                          dispatch(deleteShortTermGoal(id));
+                          setIdToDelete(id);
+                          setIsModalVisible(!isModalVisible);
                         }}
                       />
                     </span>
