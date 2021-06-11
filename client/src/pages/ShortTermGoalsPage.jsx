@@ -24,7 +24,7 @@ import {
 
 // ! VALIDATION SCHEMAS
 const schema = yup.object().shape({
-  goal: yup.string().required('Goal cannot be blank!'),
+  goal: yup.string().required('*Goal cannot be blank!'),
 });
 // ! ------------------------------------------------------------------>
 
@@ -92,18 +92,20 @@ const ShortTermGoalsPage = () => {
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col items-center text-center">
-                <input
-                  type="text"
-                  id="goal"
-                  className="block w-full px-2 py-1 mb-3 font-mono text-lg rounded lg:w-1/2 focus:outline-none"
-                  placeholder="Input goal here..."
-                  ref={register}
-                  name="goal"
-                />
-                <span className="text-lg font-semibold text-red-700">
-                  {errors.goal && errors.goal.message}
-                </span>
-                <button className="px-4 py-1 text-lg font-bold duration-300 transform bg-blue-400 rounded w-52 focus:outline-none hover:scale-125">
+                <div className="flex flex-col w-full lg:w-1/2 place-items-start">
+                  <input
+                    type="text"
+                    id="goal"
+                    className="block w-full px-2 py-1 font-mono text-lg rounded focus:outline-none"
+                    placeholder="Input goal here..."
+                    ref={register}
+                    name="goal"
+                  />
+                  <span className="text-lg font-semibold text-red-700">
+                    {errors.goal && errors.goal.message}
+                  </span>
+                </div>
+                <button className="px-4 py-1 mt-3 text-lg font-bold duration-300 transform bg-blue-400 rounded w-52 focus:outline-none hover:scale-125">
                   Submit
                 </button>
               </div>
