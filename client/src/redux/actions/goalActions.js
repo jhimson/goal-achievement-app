@@ -4,6 +4,8 @@ import Axios from 'axios';
 import { goalConstants } from '../types';
 
 const { uuid } = require('uuidv4');
+// https://goals-achievement.herokuapp.com/
+// http://localhost:5000/api/
 
 const {
   ADD_SHORT_TERM_GOAL_REQUEST,
@@ -31,7 +33,7 @@ export const addNewShortTermGoal = ({ user_id, description }) => async (
     dispatch({ type: ADD_SHORT_TERM_GOAL_REQUEST });
 
     const { data } = await Axios.post(
-      'http://localhost:5000/api/v1/short-term-goals',
+      'https://goals-achievement.herokuapp.com/api/v1/short-term-goals',
       { id, user_id, description },
       config
     );
@@ -59,7 +61,7 @@ export const deleteShortTermGoal = (id) => async (dispatch) => {
     dispatch({ type: REMOVE_SHORT_TERM_GOAL_REQUEST });
 
     const { data } = await Axios.delete(
-      `http://localhost:5000/api/v1/short-term-goals/${id}`,
+      `https://goals-achievement.herokuapp.com/api/v1/short-term-goals/${id}`,
       config
     );
 
@@ -86,7 +88,7 @@ export const getShortTermGoals = () => async (dispatch) => {
     dispatch({ type: SHORT_TERM_GOALS_LIST_REQUEST });
 
     const { data } = await Axios.get(
-      'http://localhost:5000/api/v1/short-term-goals',
+      'https://goals-achievement.herokuapp.com/api/v1/short-term-goals',
       config
     );
 

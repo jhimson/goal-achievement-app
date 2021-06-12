@@ -133,13 +133,13 @@ const ShortTermGoalsPage = () => {
             </form>
           </div>
         </div>
-        <div className="w-full h-screen p-3 font-sans bg-gray-100 lg:w-11/12 xl:p-10 md:h-auto">
+        <div className="items-center justify-center w-full h-screen px-3 font-sans bg-gray-100 lg:w-11/12 xl:p-10 md:h-auto">
           <table className="w-full bg-white rounded-lg shadow-lg table-auto border-1">
             <thead>
               <tr className="text-sm leading-normal text-center text-gray-600 uppercase bg-gray-200 lg:text-lg">
-                <th className="px-8 py-4 text-left bg-gray-200">Description</th>
-                <th className="px-8 py-4 text-left bg-gray-200">Date</th>
-                <th className="px-8 py-4 text-center bg-gray-200">Action</th>
+                <th className="px-6 py-4 text-left bg-gray-200">Description</th>
+                <th className="px-6 py-4 text-left bg-gray-200">Date</th>
+                <th className="px-6 py-4 text-center bg-gray-200">Action</th>
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
