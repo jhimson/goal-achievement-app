@@ -10,6 +10,8 @@ import * as yup from 'yup';
 import { IoTrash } from 'react-icons/io5';
 
 //! COMPONENTS
+import { useToasts } from 'react-toast-notifications';
+
 import Layout from '../components/Layout';
 import ConfirmDeleteShortTermGoalModal from '../components/ConfirmDeleteShortTermGoalModal';
 //! ----------------------------------------------------->
@@ -32,6 +34,7 @@ const ShortTermGoalsPage = () => {
   // ! COMPONENT STATE VARIABLES
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
+  const { addToast } = useToasts();
   // ! ------------------------------------------------------------------>
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
@@ -51,10 +54,19 @@ const ShortTermGoalsPage = () => {
     (state) => state.shortTermGoalsList.goals.data
   );
 
-  const newShortTermGoal = useSelector((state) => state.newShortTermGoal.goal);
-  const deletedShortTermGoal = useSelector(
-    (state) => state.shortTermGoalDeleted.goal
+  const shortTermGoal = useSelector((state) => state.newShortTermGoal);
+  const {
+    goal: newShortTermGoal,
+    success: createShortTermGoalSuccess,
+  } = shortTermGoal;
+
+  const deleteShortTermGoalData = useSelector(
+    (state) => state.shortTermGoalDeleted
   );
+  const {
+    goal: deletedShortTermGoal,
+    success: deleteShortTermGoalSuccess,
+  } = deleteShortTermGoalData;
 
   // ! -------------------------------------------->
 
@@ -74,6 +86,12 @@ const ShortTermGoalsPage = () => {
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
+    if (createShortTermGoalSuccess) {
+      addToast('Successfully Added Short Term Goal', {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+    }
     reset();
   };
   // ! -------------------------------------------->
@@ -86,6 +104,9 @@ const ShortTermGoalsPage = () => {
           deleteGoal={() => dispatch(deleteShortTermGoal(idToDelete))}
         />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
+          {/* {createShortTermGoalSuccess &&
+            } */}
+
           <div className="h-auto p-5 bg-gray-300 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
               Input short term goal

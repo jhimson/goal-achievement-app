@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import { ToastProvider } from 'react-toast-notifications';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 // import './index.css';
@@ -13,7 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <ToastProvider>
+          <App />
+        </ToastProvider>
       </Router>
     </Provider>
   </React.StrictMode>,

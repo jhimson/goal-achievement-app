@@ -24,6 +24,7 @@ export const shortTermGoalCreateReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: false,
+        success: true,
         goal: payload,
       };
 
@@ -49,14 +50,15 @@ export const shortTermGoalDeleteReducer = (state = {}, { type, payload }) => {
     case REMOVE_SHORT_TERM_GOAL_SUCCESS:
       return {
         ...state,
-        loading: true,
+        loading: false,
+        success: true,
         goal: payload,
       };
 
     case REMOVE_SHORT_TERM_GOAL_FAIL:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: payload,
       };
 

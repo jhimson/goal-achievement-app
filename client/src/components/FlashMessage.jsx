@@ -2,7 +2,7 @@ import React from 'react';
 
 const FlashMessage = ({ type, message }) => (
   <div
-    className={`${
+    className={`mb-3 ${
       type === 'danger' ? 'bg-red-500' : 'bg-green-600'
     } text-white text-center py-2 rounded-lg font-semibold text-lg`}
   >

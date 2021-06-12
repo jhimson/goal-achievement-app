@@ -2,6 +2,8 @@ import React from 'react';
 
 // components
 import { useSelector } from 'react-redux';
+import { ToastProvider } from 'react-toast-notifications';
+
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Sidenav from './Sidenav';
@@ -21,8 +23,10 @@ const Layout = ({ children, active }) => {
         </div>
       ) : (
         <div>
-          <Sidenav content={children} />
-          <Footer />
+          <ToastProvider>
+            <Sidenav content={children} />
+            <Footer />
+          </ToastProvider>
         </div>
       )}
     </>
