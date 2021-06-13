@@ -16,11 +16,7 @@ import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
-import {
-  addNewShortTermGoal,
-  getShortTermGoals,
-  deleteShortTermGoal,
-} from '../redux/actions/goalActions';
+import { addNewLongTermGoal } from '../redux/actions/longTermGoalActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
@@ -40,12 +36,21 @@ const LongTermGoalsPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   // ! GLOBAL STATE VARIABLE (STORE)
-
+  const token = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.token
+  );
+  const userId = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.user_id
+  );
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
+  useEffect(() => {
+    if (token === null) history.push('/');
+  }, [token, history]);
 
   const onSubmit = ({ goal }) => {
+    dispatch(addNewLongTermGoal({ user_id: userId, description: goal }));
     reset();
   };
   // ! -------------------------------------------->

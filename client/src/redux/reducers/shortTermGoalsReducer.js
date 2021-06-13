@@ -1,4 +1,4 @@
-import { goalConstants } from '../types';
+import { shortTermGoalsConstants } from '../types';
 
 const {
   ADD_SHORT_TERM_GOAL_REQUEST,
@@ -10,7 +10,7 @@ const {
   SHORT_TERM_GOALS_LIST_REQUEST,
   SHORT_TERM_GOALS_LIST_SUCCESS,
   SHORT_TERM_GOALS_LIST_FAIL,
-} = goalConstants;
+} = shortTermGoalsConstants;
 
 export const shortTermGoalCreateReducer = (state = {}, { type, payload }) => {
   switch (type) {

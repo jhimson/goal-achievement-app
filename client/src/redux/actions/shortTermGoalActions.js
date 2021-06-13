@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Axios from 'axios';
 
-import { goalConstants } from '../types';
+import { shortTermGoalsConstants } from '../types';
 
 const { uuid } = require('uuidv4');
 // https://goals-achievement.herokuapp.com/
@@ -17,7 +17,7 @@ const {
   SHORT_TERM_GOALS_LIST_REQUEST,
   SHORT_TERM_GOALS_LIST_SUCCESS,
   SHORT_TERM_GOALS_LIST_FAIL,
-} = goalConstants;
+} = shortTermGoalsConstants;
 
 export const addNewShortTermGoal = ({ user_id, description }) => async (
   dispatch

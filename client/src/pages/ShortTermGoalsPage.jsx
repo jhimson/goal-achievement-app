@@ -21,7 +21,7 @@ import {
   addNewShortTermGoal,
   getShortTermGoals,
   deleteShortTermGoal,
-} from '../redux/actions/goalActions';
+} from '../redux/actions/shortTermGoalActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
