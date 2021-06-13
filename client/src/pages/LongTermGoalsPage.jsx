@@ -13,7 +13,6 @@ import { IoTrash } from 'react-icons/io5';
 import { useToasts } from 'react-toast-notifications';
 
 import Layout from '../components/Layout';
-import ConfirmDeleteShortTermGoalModal from '../components/ConfirmDeleteShortTermGoalModal';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
@@ -30,11 +29,9 @@ const schema = yup.object().shape({
 });
 // ! ------------------------------------------------------------------>
 
-const ShortTermGoalsPage = () => {
+const LongTermGoalsPage = () => {
   // ! COMPONENT STATE VARIABLES
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [idToDelete, setIdToDelete] = useState(null);
-  const { addToast } = useToasts();
+
   // ! ------------------------------------------------------------------>
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
@@ -43,72 +40,22 @@ const ShortTermGoalsPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   // ! GLOBAL STATE VARIABLE (STORE)
-  const token = useSelector(
-    (state) => state.userLoggedIn.userLoggedInInfo.token
-  );
-  const userId = useSelector(
-    (state) => state.userLoggedIn.userLoggedInInfo.user_id
-  );
-
-  const shortTermGoals = useSelector(
-    (state) => state.shortTermGoalsList.goals.data
-  );
-
-  const shortTermGoal = useSelector((state) => state.newShortTermGoal);
-  const {
-    goal: newShortTermGoal,
-    success: createShortTermGoalSuccess,
-  } = shortTermGoal;
-
-  const deleteShortTermGoalData = useSelector(
-    (state) => state.shortTermGoalDeleted
-  );
-  const {
-    goal: deletedShortTermGoal,
-    success: deleteShortTermGoalSuccess,
-  } = deleteShortTermGoalData;
 
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
 
-  useEffect(() => {
-    if (userId) {
-      dispatch(getShortTermGoals(userId));
-    }
-  }, [dispatch, userId]);
-
-  useEffect(() => {
-    if (token === null) history.push('/');
-  }, [token, history]);
-
-  useEffect(() => {
-    dispatch(getShortTermGoals(userId));
-  }, [dispatch, newShortTermGoal, deletedShortTermGoal, userId]);
-
   const onSubmit = ({ goal }) => {
-    dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
-    if (createShortTermGoalSuccess) {
-      addToast('Successfully Added Short Term Goal', {
-        appearance: 'success',
-        autoDismiss: true,
-      });
-    }
     reset();
   };
   // ! -------------------------------------------->
   return (
-    <Layout active="shortTermGoalsPage">
+    <Layout active="longTermGoalsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
-        <ConfirmDeleteShortTermGoalModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          deleteGoal={() => dispatch(deleteShortTermGoal(idToDelete))}
-        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-gray-300 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
-              Input short term goal
+              Input long term goal
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col items-center text-center">
@@ -142,30 +89,19 @@ const ShortTermGoalsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {shortTermGoals.map(({ id, description }) => (
-                <tr
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                  key={id}
-                >
-                  <td className="px-6 py-3 text-left cursor-pointer">
-                    {description}
-                  </td>
-                  <td className="px-6 py-3 text-left cursor-pointer">
-                    05/31/2021
-                  </td>
-                  <td className="flex items-center justify-center h-12 text-red-500">
-                    <span className="duration-200 transform cursor-pointer hover:scale-125">
-                      <IoTrash
-                        size="1.5em"
-                        onClick={() => {
-                          setIdToDelete(id);
-                          setIsModalVisible(!isModalVisible);
-                        }}
-                      />
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              <tr className="border-b border-gray-200 hover:bg-gray-100">
+                <td className="px-6 py-3 text-left cursor-pointer">
+                  description
+                </td>
+                <td className="px-6 py-3 text-left cursor-pointer">
+                  05/31/2021
+                </td>
+                <td className="flex items-center justify-center h-12 text-red-500">
+                  <span className="duration-200 transform cursor-pointer hover:scale-125">
+                    <IoTrash size="1.5em" onClick={() => {}} />
+                  </span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -173,4 +109,4 @@ const ShortTermGoalsPage = () => {
     </Layout>
   );
 };
-export default ShortTermGoalsPage;
+export default LongTermGoalsPage;
