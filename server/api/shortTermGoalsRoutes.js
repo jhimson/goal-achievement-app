@@ -5,11 +5,12 @@ const Router = express.Router();
 
 const {
   addNewShortTermGoal,
-  getAllShortTermGoals,
+  getShortTermGoals,
   deleteShortTermGoal,
 } = require("../controllers/shortTermGoalsController");
 
-Router.route("/").post(addNewShortTermGoal).get(getAllShortTermGoals);
+Router.route("/").post(addNewShortTermGoal);
+Router.route("/:user_id").get(getShortTermGoals);
 
 Router.route("/:id").delete(deleteShortTermGoal);
 

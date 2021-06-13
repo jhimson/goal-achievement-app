@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable camelcase */
 const db = require("..");
 
@@ -9,8 +10,11 @@ const createNewShortTermGoal = (data) => {
   });
 };
 
-const fetchShortTermGoals = () =>
-  db.query(`SELECT * FROM tbl_short_term_goals`);
+const fetchShortTermGoalsByUserId = (user_id) =>
+  db.query({
+    text: `SELECT * FROM tbl_short_term_goals WHERE user_id = $1`,
+    values: [user_id],
+  });
 
 const destroyOneShortTermGoal = (id) =>
   db.query({
@@ -20,6 +24,6 @@ const destroyOneShortTermGoal = (id) =>
 
 module.exports = {
   createNewShortTermGoal,
-  fetchShortTermGoals,
+  fetchShortTermGoalsByUserId,
   destroyOneShortTermGoal,
 };

@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 const asyncHandler = require("express-async-handler");
 
 const {
   createNewShortTermGoal,
-  fetchShortTermGoals,
+  fetchShortTermGoalsByUserId,
   destroyOneShortTermGoal,
 } = require("../db/models/shortTermGoalsModel");
 
@@ -24,8 +25,10 @@ const addNewShortTermGoal = asyncHandler(async (req, res) => {
 // ? @Description    Fetch all short term goals
 // ? @Route          GET /api/v1/short-term-goals
 // ? @Access         Private/User
-const getAllShortTermGoals = asyncHandler(async (req, res) => {
-  const { rows } = await fetchShortTermGoals();
+const getShortTermGoals = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+  console.log(req.params);
+  const { rows } = await fetchShortTermGoalsByUserId(user_id);
 
   if (rows) {
     res
@@ -54,6 +57,6 @@ const deleteShortTermGoal = asyncHandler(async (req, res) => {
 
 module.exports = {
   addNewShortTermGoal,
-  getAllShortTermGoals,
+  getShortTermGoals,
   deleteShortTermGoal,
 };

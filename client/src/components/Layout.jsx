@@ -24,7 +24,7 @@ const Layout = ({ children, active }) => {
       ) : (
         <div>
           <ToastProvider>
-            <Sidenav content={children} />
+            <Sidenav content={children} active={active} />
             <Footer />
           </ToastProvider>
         </div>

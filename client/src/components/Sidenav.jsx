@@ -19,7 +19,7 @@ import logo from '../assets/images/nav-logo.png';
 import { userLogout } from '../redux/actions/userActions';
 // !------------------------------------------------------------------------>
 
-const Sidenav = ({ content }) => {
+const Sidenav = ({ content, active }) => {
   //! COMPONENT STATE
   const [sideNavIsVisible, setSideNavIsVisible] = useState(false);
   // !---------------------------------------------------------------------->
@@ -70,7 +70,9 @@ const Sidenav = ({ content }) => {
         <nav className="space-y-2">
           <a
             href="#"
-            className="flex space-x-2 items-center px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className={`flex items-center space-x-2 px-4 py-2.5 ${
+              active === 'dashboardPage' ? 'bg-blue-700' : null
+            } hover:bg-blue-700 rounded hover:text-white transition duration-200`}
             onClick={(e) => {
               e.preventDefault();
               history.push('/dashboard');
@@ -81,7 +83,9 @@ const Sidenav = ({ content }) => {
           </a>
           <a
             href="#"
-            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className={`flex items-center space-x-2 px-4 py-2.5 ${
+              active === 'shortTermGoalsPage' ? 'bg-blue-700' : null
+            } hover:bg-blue-700 rounded hover:text-white transition duration-200`}
             onClick={(e) => {
               e.preventDefault();
               history.push('/short-term-goals');

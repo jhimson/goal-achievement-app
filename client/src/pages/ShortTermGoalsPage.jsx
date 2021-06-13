@@ -73,16 +73,18 @@ const ShortTermGoalsPage = () => {
   // ! FUNCTIONS
 
   useEffect(() => {
-    dispatch(getShortTermGoals());
-  }, [dispatch]);
+    if (userId) {
+      dispatch(getShortTermGoals(userId));
+    }
+  }, [dispatch, userId]);
 
   useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
 
   useEffect(() => {
-    dispatch(getShortTermGoals());
-  }, [dispatch, newShortTermGoal, deletedShortTermGoal]);
+    dispatch(getShortTermGoals(userId));
+  }, [dispatch, newShortTermGoal, deletedShortTermGoal, userId]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));

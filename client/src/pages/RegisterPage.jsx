@@ -32,9 +32,9 @@ const RegisterPage = () => {
   });
   const dispatch = useDispatch();
   // ? Global state (Store)
-  const error = useSelector((state) => state.userRegister.error);
+  const error = useSelector((state) => state.userRegistered.error);
   const message = useSelector(
-    (state) => state.userRegister.userRegisterInfo.message
+    (state) => state.userRegistered.userRegisteredInfo.message
   );
 
   // ? Functions
