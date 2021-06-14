@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Moment from 'moment';
 import * as yup from 'yup';
 
 import { IoTrash } from 'react-icons/io5';
@@ -46,9 +47,11 @@ const LongTermGoalsPage = () => {
   const userId = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
-  const longTermGoals = useSelector(
-    (state) => state.longTermGoalsList.goals.data
-  );
+  const longTermGoalsList =
+    useSelector((state) => state.longTermGoalsList.goals.data) || [];
+
+  const longTermGoal = useSelector((state) => state.newLongTermGoal);
+  const { success: createLongTermGoalSuccess } = longTermGoal;
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -58,7 +61,7 @@ const LongTermGoalsPage = () => {
 
   useEffect(() => {
     dispatch(getLongTermGoals(userId));
-  }, [userId, dispatch]);
+  }, [userId, dispatch, createLongTermGoalSuccess]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewLongTermGoal({ user_id: userId, description: goal }));
@@ -105,7 +108,7 @@ const LongTermGoalsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {longTermGoals.map(({ id, description, created_at }) => (
+              {longTermGoalsList.map(({ id, description, created_at }) => (
                 <tr
                   className="border-b border-gray-200 hover:bg-gray-100"
                   key={id}
@@ -114,7 +117,7 @@ const LongTermGoalsPage = () => {
                     {description}
                   </td>
                   <td className="px-6 py-3 text-left cursor-pointer">
-                    {created_at}
+                    {Moment(created_at).format('l')}
                   </td>
                   <td className="flex items-center justify-center h-12 text-red-500">
                     <span className="duration-200 transform cursor-pointer hover:scale-125">
