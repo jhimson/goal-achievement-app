@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from 'react';
@@ -16,7 +17,10 @@ import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
-import { addNewLongTermGoal } from '../redux/actions/longTermGoalActions';
+import {
+  addNewLongTermGoal,
+  getLongTermGoals,
+} from '../redux/actions/longTermGoalActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
@@ -42,12 +46,19 @@ const LongTermGoalsPage = () => {
   const userId = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
+  const longTermGoals = useSelector(
+    (state) => state.longTermGoalsList.goals.data
+  );
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
   useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
+
+  useEffect(() => {
+    dispatch(getLongTermGoals(userId));
+  }, [userId, dispatch]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewLongTermGoal({ user_id: userId, description: goal }));
@@ -94,19 +105,24 @@ const LongTermGoalsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  description
-                </td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  05/31/2021
-                </td>
-                <td className="flex items-center justify-center h-12 text-red-500">
-                  <span className="duration-200 transform cursor-pointer hover:scale-125">
-                    <IoTrash size="1.5em" onClick={() => {}} />
-                  </span>
-                </td>
-              </tr>
+              {longTermGoals.map(({ id, description, created_at }) => (
+                <tr
+                  className="border-b border-gray-200 hover:bg-gray-100"
+                  key={id}
+                >
+                  <td className="px-6 py-3 text-left cursor-pointer">
+                    {description}
+                  </td>
+                  <td className="px-6 py-3 text-left cursor-pointer">
+                    {created_at}
+                  </td>
+                  <td className="flex items-center justify-center h-12 text-red-500">
+                    <span className="duration-200 transform cursor-pointer hover:scale-125">
+                      <IoTrash size="1.5em" onClick={() => {}} />
+                    </span>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

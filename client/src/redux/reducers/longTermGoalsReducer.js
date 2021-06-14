@@ -1,3 +1,4 @@
+import { Switch } from 'react-router-dom';
 import { longTermGoalsConstants } from '../types';
 
 const {
@@ -7,9 +8,9 @@ const {
   //   REMOVE_LONG_TERM_GOAL_REQUEST,
   //   REMOVE_LONG_TERM_GOAL_SUCCESS,
   //   REMOVE_LONG_TERM_GOAL_FAIL,
-  //   LONG_TERM_GOALS_LIST_REQUEST,
-  //   LONG_TERM_GOALS_LIST_SUCCESS,
-  //   LONG_TERM_GOALS_LIST_FAIL,
+  LONG_TERM_GOALS_LIST_REQUEST,
+  LONG_TERM_GOALS_LIST_SUCCESS,
+  LONG_TERM_GOALS_LIST_FAIL,
 } = longTermGoalsConstants;
 
 export const longTermGoalCreateReducer = (state = {}, { type, payload }) => {
@@ -29,6 +30,34 @@ export const longTermGoalCreateReducer = (state = {}, { type, payload }) => {
       };
 
     case ADD_LONG_TERM_GOAL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const longTermGoalsListReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case LONG_TERM_GOALS_LIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case LONG_TERM_GOALS_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        goals: payload,
+      };
+
+    case LONG_TERM_GOALS_LIST_FAIL:
       return {
         ...state,
         loading: false,

@@ -22,6 +22,7 @@ const initialState = {
   shortTermGoalDeleted: { error: null, goal: {} },
   shortTermGoalsList: { error: null, goals: { data: [] } },
   newLongTermGoal: { error: null, success: false, goal: {} },
+  longTermGoalsList: { error: null, success: false, goals: [] },
 };
 
 const store = createStore(
