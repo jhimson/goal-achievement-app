@@ -19,6 +19,7 @@ export const longTermGoalCreateReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: true,
+        success: false,
       };
 
     case ADD_LONG_TERM_GOAL_SUCCESS:
@@ -34,6 +35,7 @@ export const longTermGoalCreateReducer = (state = {}, { type, payload }) => {
         ...state,
         loading: false,
         error: payload,
+        success: false,
       };
 
     default:
@@ -75,6 +77,7 @@ export const longTermGoalsDeleteReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: true,
+        success: false,
       };
 
     case REMOVE_LONG_TERM_GOAL_SUCCESS:
@@ -90,6 +93,7 @@ export const longTermGoalsDeleteReducer = (state = {}, { type, payload }) => {
         ...state,
         loading: false,
         error: payload,
+        success: false,
       };
 
     default:

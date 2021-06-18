@@ -13,7 +13,7 @@ import { IoTrash } from 'react-icons/io5';
 
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
-
+import ConfirmDeleteLongTermGoalModal from '../components/ConfirmDeleteLongTermGoalModal';
 import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
@@ -33,7 +33,9 @@ const schema = yup.object().shape({
 
 const LongTermGoalsPage = () => {
   // ! COMPONENT STATE VARIABLES
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [idToDelete, setIdToDelete] = useState(null);
+  const { addToast } = useToasts();
   // ! ------------------------------------------------------------------>
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
@@ -60,21 +62,40 @@ const LongTermGoalsPage = () => {
 
   // ! FUNCTIONS
   useEffect(() => {
+    dispatch(getLongTermGoals(userId));
+  }, [userId, dispatch]);
+
+  useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
 
   useEffect(() => {
     dispatch(getLongTermGoals(userId));
-  }, [userId, dispatch, createLongTermGoalSuccess, deleteLongTermGoalSuccess]);
+  }, [userId, dispatch, createLongTermGoalSuccess]);
+
+  useEffect(() => {
+    dispatch(getLongTermGoals(userId));
+  }, [userId, dispatch, deleteLongTermGoalSuccess]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewLongTermGoal({ user_id: userId, description: goal }));
+    if (createLongTermGoalSuccess) {
+      addToast('Successfully Added Long Term Goal', {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+    }
     reset();
   };
   // ! -------------------------------------------->
   return (
     <Layout active="longTermGoalsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+        <ConfirmDeleteLongTermGoalModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          deleteGoal={() => dispatch(deleteLongTermGoal(idToDelete))}
+        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-gray-300 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
@@ -128,7 +149,8 @@ const LongTermGoalsPage = () => {
                       <IoTrash
                         size="1.5em"
                         onClick={() => {
-                          dispatch(deleteLongTermGoal(id));
+                          setIdToDelete(id);
+                          setIsModalVisible(!isModalVisible);
                         }}
                       />
                     </span>
