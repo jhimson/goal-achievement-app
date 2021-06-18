@@ -17,7 +17,14 @@ const findLongTermGoalsByUserId = (user_id) =>
     values: [user_id],
   });
 
+const destroyOneShortTermGoal = (id) =>
+  db.query({
+    text: `DELETE FROM tbl_long_term_goals WHERE id = $1 returning *`,
+    values: [id],
+  });
+
 module.exports = {
   createNewLongTermGoal,
   findLongTermGoalsByUserId,
+  destroyOneShortTermGoal,
 };

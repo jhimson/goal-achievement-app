@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 const {
   createNewLongTermGoal,
   findLongTermGoalsByUserId,
+  destroyOneShortTermGoal,
 } = require("../db/models/longTermGoalsModel");
 
 // ? @Description    Insert new long term goal
@@ -37,7 +38,23 @@ const fetchShortTermGoalsById = asyncHandler(async (req, res) => {
     throw new Error(`Failed to fetch long term goals`);
   }
 });
+
+// ? @Description    Delete one long term goal by id
+// ? @Route          DEL /api/v1/long-term-goals
+// ? @Access         Private/User
+const deleteOneLongTermGoal = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const { rows } = await destroyOneShortTermGoal(id);
+  if (rows) {
+    res.status(202).json({ message: `Successfully deleted goal` });
+  } else {
+    res.status(500);
+    throw new Error(`Failed to delete long term goal`);
+  }
+});
 module.exports = {
   addNewLongTermGoal,
   fetchShortTermGoalsById,
+  deleteOneLongTermGoal,
 };

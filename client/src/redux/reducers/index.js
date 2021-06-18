@@ -11,6 +11,7 @@ import {
 import {
   longTermGoalCreateReducer,
   longTermGoalsListReducer,
+  longTermGoalsDeleteReducer,
 } from './longTermGoalsReducer';
 //!
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   shortTermGoalsList: shortTermGoalsListReducer,
   newLongTermGoal: longTermGoalCreateReducer,
   longTermGoalsList: longTermGoalsListReducer,
+  longTermGoalDeleted: longTermGoalsDeleteReducer,
 });
 
 export default rootReducer;

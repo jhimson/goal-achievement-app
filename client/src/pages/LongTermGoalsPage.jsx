@@ -21,6 +21,7 @@ import Layout from '../components/Layout';
 import {
   addNewLongTermGoal,
   getLongTermGoals,
+  deleteLongTermGoal,
 } from '../redux/actions/longTermGoalActions';
 // ! ------------------------------------------------------------------>
 
@@ -50,8 +51,11 @@ const LongTermGoalsPage = () => {
   const longTermGoalsList =
     useSelector((state) => state.longTermGoalsList.goals.data) || [];
 
-  const longTermGoal = useSelector((state) => state.newLongTermGoal);
-  const { success: createLongTermGoalSuccess } = longTermGoal;
+  const longTermGoalCreate = useSelector((state) => state.newLongTermGoal);
+  const { success: createLongTermGoalSuccess } = longTermGoalCreate;
+
+  const longTermGoalDelete = useSelector((state) => state.longTermGoalDeleted);
+  const { success: deleteLongTermGoalSuccess } = longTermGoalDelete;
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -61,7 +65,7 @@ const LongTermGoalsPage = () => {
 
   useEffect(() => {
     dispatch(getLongTermGoals(userId));
-  }, [userId, dispatch, createLongTermGoalSuccess]);
+  }, [userId, dispatch, createLongTermGoalSuccess, deleteLongTermGoalSuccess]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewLongTermGoal({ user_id: userId, description: goal }));
@@ -121,7 +125,12 @@ const LongTermGoalsPage = () => {
                   </td>
                   <td className="flex items-center justify-center h-12 text-red-500">
                     <span className="duration-200 transform cursor-pointer hover:scale-125">
-                      <IoTrash size="1.5em" onClick={() => {}} />
+                      <IoTrash
+                        size="1.5em"
+                        onClick={() => {
+                          dispatch(deleteLongTermGoal(id));
+                        }}
+                      />
                     </span>
                   </td>
                 </tr>
