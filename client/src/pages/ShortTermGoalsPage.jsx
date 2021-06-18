@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Moment from 'moment';
 import * as yup from 'yup';
 
 import { IoTrash } from 'react-icons/io5';
@@ -142,7 +144,7 @@ const ShortTermGoalsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {shortTermGoals.map(({ id, description }) => (
+              {shortTermGoals.map(({ id, description, created_at }) => (
                 <tr
                   className="border-b border-gray-200 hover:bg-gray-100"
                   key={id}
@@ -151,7 +153,7 @@ const ShortTermGoalsPage = () => {
                     {description}
                   </td>
                   <td className="px-6 py-3 text-left cursor-pointer">
-                    05/31/2021
+                    {Moment(created_at).format('l')}
                   </td>
                   <td className="flex items-center justify-center h-12 text-red-500">
                     <span className="duration-200 transform cursor-pointer hover:scale-125">
