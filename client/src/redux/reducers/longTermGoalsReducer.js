@@ -11,6 +11,9 @@ const {
   LONG_TERM_GOALS_LIST_REQUEST,
   LONG_TERM_GOALS_LIST_SUCCESS,
   LONG_TERM_GOALS_LIST_FAIL,
+  GET_TOTAL_LONG_TERM_GOALS_REQUEST,
+  GET_TOTAL_LONG_TERM_GOALS_SUCCESS,
+  GET_TOTAL_LONG_TERM_GOALS_FAIL,
 } = longTermGoalsConstants;
 
 export const longTermGoalCreateReducer = (state = {}, { type, payload }) => {
@@ -96,6 +99,33 @@ export const longTermGoalsDeleteReducer = (state = {}, { type, payload }) => {
         success: false,
       };
 
+    default:
+      return state;
+  }
+};
+
+export const totalLongTermGoalReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case GET_TOTAL_LONG_TERM_GOALS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case GET_TOTAL_LONG_TERM_GOALS_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        total: payload,
+      };
+
+    case GET_TOTAL_LONG_TERM_GOALS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
     default:
       return state;
   }

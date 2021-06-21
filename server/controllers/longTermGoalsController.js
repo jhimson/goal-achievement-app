@@ -6,6 +6,7 @@ const {
   createNewLongTermGoal,
   findLongTermGoalsByUserId,
   destroyOneShortTermGoal,
+  findTotalLongTermGoalsByUserId,
 } = require("../db/models/longTermGoalsModel");
 
 // ? @Description    Insert new long term goal
@@ -53,8 +54,25 @@ const deleteOneLongTermGoal = asyncHandler(async (req, res) => {
     throw new Error(`Failed to delete long term goal`);
   }
 });
+
+// ? @Description    Fetch total long term goal by user_id
+// ? @Route          DEL /api/v1/long-term-goals/total/:user_id
+// ? @Access         Private/User
+const getTotalLongTermGoals = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+
+  const { rows } = await findTotalLongTermGoalsByUserId(user_id);
+
+  if (rows) {
+    res.status(200).json({ data: rows });
+  } else {
+    res.status(500);
+    throw new Error(`failed to fetch total long term goals`);
+  }
+});
 module.exports = {
   addNewLongTermGoal,
   fetchShortTermGoalsById,
   deleteOneLongTermGoal,
+  getTotalLongTermGoals,
 };

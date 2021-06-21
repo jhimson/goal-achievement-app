@@ -103,7 +103,6 @@ export const getTotalShortTermGoals = (user_id) => async (dispatch) => {
       `http://localhost:5000/api/v1/short-term-goals/total/${user_id}`,
       config
     );
-    console.log('dita', data);
     dispatch({ type: GET_TOTAL_SHORT_TERM_GOALS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

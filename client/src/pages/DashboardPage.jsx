@@ -11,6 +11,8 @@ import Layout from '../components/Layout';
 
 // ! ACTIONS
 import { getTotalShortTermGoals } from '../redux/actions/shortTermGoalActions';
+import { getTotalLongTermGoals } from '../redux/actions/longTermGoalActions';
+
 // ! ------------------------------------------------------------------>
 
 const DashboardPage = () => {
@@ -24,13 +26,14 @@ const DashboardPage = () => {
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
 
-  const totalCountShortTermGoals = useSelector(
-    (state) => state.totalShortTermGoals
+  const totalCountOfShortTermGoals = useSelector(
+    (state) => state.totalShortTermGoals.total
   );
 
-  const total = useSelector((state) => state.totalShortTermGoals.total);
+  const totalCountOfLongTermGoals = useSelector(
+    (state) => state.totalLongTermGoals.total
+  );
 
-  const { success: getTotalShortTermGoalsSuccess } = totalCountShortTermGoals;
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -39,6 +42,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     dispatch(getTotalShortTermGoals(userId));
+    dispatch(getTotalLongTermGoals(userId));
   }, [dispatch, userId]);
   return (
     <Layout active="dashboardPage">
@@ -46,7 +50,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Short term goals"
           color="red"
-          total={total ? total.data[0].total_short_term_goals : 0}
+          total={
+            totalCountOfShortTermGoals
+              ? totalCountOfShortTermGoals.data[0].total_short_term_goals
+              : 0
+          }
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +75,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Long term goals"
           color="green"
-          total={2}
+          total={
+            totalCountOfLongTermGoals
+              ? totalCountOfLongTermGoals.data[0].total_long_term_goals
+              : 0
+          }
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"

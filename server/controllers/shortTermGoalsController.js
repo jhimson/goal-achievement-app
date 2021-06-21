@@ -4,9 +4,9 @@ const asyncHandler = require("express-async-handler");
 
 const {
   createNewShortTermGoal,
-  fetchShortTermGoalsByUserId,
+  findShortTermGoalsByUserId,
   destroyOneShortTermGoal,
-  fetchTotalShortTermGoalsByUserId,
+  findTotalShortTermGoalsByUserId,
 } = require("../db/models/shortTermGoalsModel");
 
 // ? @Description    Insert new short term goal
@@ -28,7 +28,7 @@ const addNewShortTermGoal = asyncHandler(async (req, res) => {
 // ? @Access         Private/User
 const getShortTermGoals = asyncHandler(async (req, res) => {
   const { user_id } = req.params;
-  const { rows } = await fetchShortTermGoalsByUserId(user_id);
+  const { rows } = await findShortTermGoalsByUserId(user_id);
 
   if (rows) {
     res
@@ -56,12 +56,12 @@ const deleteShortTermGoal = asyncHandler(async (req, res) => {
 });
 
 // ? @Description    Fetch total short term goals
-// ? @Route          GET /api/v1/short-term-goals/total/:user_i
+// ? @Route          GET /api/v1/short-term-goals/total/:user_id
 // ? @Access         Private/User
 const getTotalShortTermGoals = asyncHandler(async (req, res) => {
   const { user_id } = req.params;
 
-  const { rows } = await fetchTotalShortTermGoalsByUserId(user_id);
+  const { rows } = await findTotalShortTermGoalsByUserId(user_id);
 
   if (rows) {
     res.status(200).json({ data: rows });
