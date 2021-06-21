@@ -1,6 +1,7 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/button-has-type */
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import InfoCard from '../components/InfoCard';
 
@@ -8,27 +9,48 @@ import InfoCard from '../components/InfoCard';
 import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
+// ! ACTIONS
+import { getTotalShortTermGoals } from '../redux/actions/shortTermGoalActions';
+// ! ------------------------------------------------------------------>
+
 const DashboardPage = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   // ! GLOBAL STATE VARIABLE (STORE)
   const token = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.token
   );
+  const userId = useSelector(
+    (state) => state.userLoggedIn.userLoggedInInfo.user_id
+  );
+
+  const totalCountShortTermGoals = useSelector(
+    (state) => state.totalShortTermGoals
+  );
+
+  const total = useSelector((state) => state.totalShortTermGoals.total);
+
+  const { success: getTotalShortTermGoalsSuccess } = totalCountShortTermGoals;
   // ! -------------------------------------------->
 
   useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
+
+  useEffect(() => {
+    dispatch(getTotalShortTermGoals(userId));
+  }, [dispatch, userId]);
   return (
     <Layout active="dashboardPage">
       <div className="grid p-5 mt-8 space-y-10 bg-gray-100 lg:space-y-0 lg:grid-cols-2 lg:p-5 lg:gap-3 xl:grid-cols-3">
         <InfoCard
           title="Short term goals"
           color="red"
+          total={total ? total.data[0].total_short_term_goals : 0}
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10 text-gray-500"
+              className="w-10 h-10 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -45,10 +67,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Long term goals"
           color="green"
+          total={2}
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10 text-gray-500"
+              className="w-10 h-10 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -57,7 +80,7 @@ const DashboardPage = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
               />
             </svg>
           }
@@ -65,10 +88,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Achievements"
           color="blue"
+          total={2}
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10 text-gray-500"
+              className="w-10 h-10 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -87,10 +111,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Needs to improve"
           color="yellow"
+          total={2}
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10 text-gray-500"
+              className="w-10 h-10 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -113,10 +138,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Mistakes/Regrets"
           color="indigo"
+          total={2}
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10 text-gray-500"
+              className="w-10 h-10 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -133,10 +159,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Lesson learned"
           color="pink"
+          total={2}
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10 text-gray-500"
+              className="w-10 h-10 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

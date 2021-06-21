@@ -22,8 +22,15 @@ const destroyOneShortTermGoal = (id) =>
     values: [id],
   });
 
+const fetchTotalShortTermGoalsByUserId = (user_id) =>
+  db.query({
+    text: `SELECT COUNT(id) as total_short_term_goals FROM tbl_short_term_goals WHERE user_id = $1`,
+    values: [user_id],
+  });
+
 module.exports = {
   createNewShortTermGoal,
   fetchShortTermGoalsByUserId,
   destroyOneShortTermGoal,
+  fetchTotalShortTermGoalsByUserId,
 };

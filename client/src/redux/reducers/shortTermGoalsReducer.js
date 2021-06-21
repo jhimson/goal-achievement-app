@@ -10,6 +10,9 @@ const {
   SHORT_TERM_GOALS_LIST_REQUEST,
   SHORT_TERM_GOALS_LIST_SUCCESS,
   SHORT_TERM_GOALS_LIST_FAIL,
+  GET_TOTAL_SHORT_TERM_GOALS_REQUEST,
+  GET_TOTAL_SHORT_TERM_GOALS_SUCCESS,
+  GET_TOTAL_SHORT_TERM_GOALS_FAIL,
 } = shortTermGoalsConstants;
 
 export const shortTermGoalCreateReducer = (state = {}, { type, payload }) => {
@@ -90,6 +93,36 @@ export const shortTermGoalsListReducer = (state = {}, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const totalShortTermGoalReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case GET_TOTAL_SHORT_TERM_GOALS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case GET_TOTAL_SHORT_TERM_GOALS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        total: payload,
+      };
+
+    case GET_TOTAL_SHORT_TERM_GOALS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: payload,
+      };
+
     default:
       return state;
   }

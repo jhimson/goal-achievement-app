@@ -6,6 +6,7 @@ const {
   createNewShortTermGoal,
   fetchShortTermGoalsByUserId,
   destroyOneShortTermGoal,
+  fetchTotalShortTermGoalsByUserId,
 } = require("../db/models/shortTermGoalsModel");
 
 // ? @Description    Insert new short term goal
@@ -27,7 +28,6 @@ const addNewShortTermGoal = asyncHandler(async (req, res) => {
 // ? @Access         Private/User
 const getShortTermGoals = asyncHandler(async (req, res) => {
   const { user_id } = req.params;
-  console.log(req.params);
   const { rows } = await fetchShortTermGoalsByUserId(user_id);
 
   if (rows) {
@@ -55,8 +55,25 @@ const deleteShortTermGoal = asyncHandler(async (req, res) => {
   }
 });
 
+// ? @Description    Fetch total short term goals
+// ? @Route          GET /api/v1/short-term-goals/total/:user_i
+// ? @Access         Private/User
+const getTotalShortTermGoals = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+
+  const { rows } = await fetchTotalShortTermGoalsByUserId(user_id);
+
+  if (rows) {
+    res.status(200).json({ data: rows });
+  } else {
+    res.status(500);
+    throw new Error("Failed to fetch total short term goals");
+  }
+});
+
 module.exports = {
   addNewShortTermGoal,
   getShortTermGoals,
   deleteShortTermGoal,
+  getTotalShortTermGoals,
 };

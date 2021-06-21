@@ -1,12 +1,12 @@
 import React from 'react';
 
-const InfoCard = ({ title, color, logo }) => {
+const InfoCard = ({ title, color, logo, total }) => {
   const x = 0;
   return (
     <div className="w-full bg-white rounded-lg shadow-xl ">
       <div className="flex justify-between p-5">
         <div>
-          <div className={`text-${color}-500`}>12</div>
+          <div className={`text-${color}-500`}>{total}</div>
           <div className="font-mono text-lg text-gray-500">{title}</div>
         </div>
         <div className="items-center">{logo}</div>
