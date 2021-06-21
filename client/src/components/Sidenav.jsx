@@ -147,7 +147,7 @@ const Sidenav = ({ content, active }) => {
       </div>
 
       {/* content */}
-      <div className="flex-1 min-h-screen text-2xl font-bold bg-gray-200">
+      <div className="flex-1 min-h-screen text-2xl font-bold bg-gray-100">
         {content}
       </div>
     </div>
