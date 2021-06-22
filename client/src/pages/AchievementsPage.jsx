@@ -8,35 +8,27 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Moment from 'moment';
 import * as yup from 'yup';
-
 import { IoTrash } from 'react-icons/io5';
 
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
-
 import Layout from '../components/Layout';
-import ConfirmDeleteShortTermGoalModal from '../components/ConfirmDeleteShortTermGoalModal';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
-import {
-  addNewShortTermGoal,
-  getShortTermGoals,
-  deleteShortTermGoal,
-} from '../redux/actions/shortTermGoalActions';
+import { insertNewAchievement } from '../redux/actions/achievementActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
 const schema = yup.object().shape({
-  goal: yup.string().required('*Goal cannot be blank!'),
+  achievement: yup.string().required('*Achievement cannot be blank!'),
 });
 // ! ------------------------------------------------------------------>
 
-const ShortTermGoalsPage = () => {
+const AchievementsPage = () => {
   // ! COMPONENT STATE VARIABLES
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [idToDelete, setIdToDelete] = useState(null);
   const { addToast } = useToasts();
+
   // ! ------------------------------------------------------------------>
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
@@ -51,47 +43,22 @@ const ShortTermGoalsPage = () => {
   const userId = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
-
-  const shortTermGoals = useSelector(
-    (state) => state.shortTermGoalsList.goals.data
-  );
-
-  const shortTermGoal = useSelector((state) => state.newShortTermGoal);
-  const {
-    goal: newShortTermGoal,
-    success: createShortTermGoalSuccess,
-  } = shortTermGoal;
-
-  const deleteShortTermGoalData = useSelector(
-    (state) => state.shortTermGoalDeleted
-  );
-  const {
-    goal: deletedShortTermGoal,
-    success: deleteShortTermGoalSuccess,
-  } = deleteShortTermGoalData;
-
+  const achievementsCreate = useSelector((state) => state.newAchievement);
+  const { success: createAchievementSuccess } = achievementsCreate;
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getShortTermGoals(userId));
-    }
-  }, [dispatch, userId]);
-
-  useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
 
-  useEffect(() => {
-    dispatch(getShortTermGoals(userId));
-  }, [dispatch, newShortTermGoal, deletedShortTermGoal, userId]);
-
-  const onSubmit = ({ goal }) => {
-    dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
-    if (createShortTermGoalSuccess) {
-      addToast('Successfully Added Short Term Goal', {
+  const onSubmit = ({ achievement }) => {
+    dispatch(
+      insertNewAchievement({ user_id: userId, description: achievement })
+    );
+    if (createAchievementSuccess) {
+      addToast('Successfully added a new Achievement', {
         appearance: 'success',
         autoDismiss: true,
       });
@@ -100,34 +67,29 @@ const ShortTermGoalsPage = () => {
   };
   // ! -------------------------------------------->
   return (
-    <Layout active="shortTermGoalsPage">
+    <Layout active="achievementsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
-        <ConfirmDeleteShortTermGoalModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          deleteGoal={() => dispatch(deleteShortTermGoal(idToDelete))}
-        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
-          <div className="h-auto p-5 bg-red-400 rounded shadow">
+          <div className="h-auto p-5 bg-blue-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
-              Input short term goal
+              Input Today's Achievement
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col items-center text-center">
                 <div className="flex flex-col w-full lg:w-1/2 place-items-start">
                   <input
                     type="text"
-                    id="goal"
+                    id="achievement"
                     className="block w-full px-2 py-1 font-mono text-lg rounded focus:outline-none"
                     placeholder="Input goal here..."
                     ref={register}
-                    name="goal"
+                    name="achievement"
                   />
                   <span className="text-lg font-semibold text-red-700">
-                    {errors.goal && errors.goal.message}
+                    {errors.achievement && errors.achievement.message}
                   </span>
                 </div>
-                <button className="px-4 py-1 mt-3 text-lg font-bold duration-300 transform bg-blue-400 rounded w-52 focus:outline-none hover:scale-125">
+                <button className="px-4 py-1 mt-3 text-lg font-bold text-gray-200 duration-300 transform bg-blue-700 rounded w-52 focus:outline-none hover:scale-125">
                   Submit
                 </button>
               </div>
@@ -144,30 +106,18 @@ const ShortTermGoalsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {shortTermGoals.map(({ id, description, created_at }) => (
-                <tr
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                  key={id}
-                >
-                  <td className="px-6 py-3 text-left cursor-pointer">
-                    {description}
-                  </td>
-                  <td className="px-6 py-3 text-left cursor-pointer">
-                    {Moment(created_at).format('l')}
-                  </td>
-                  <td className="flex items-center justify-center h-12 text-red-500">
-                    <span className="duration-200 transform cursor-pointer hover:scale-125">
-                      <IoTrash
-                        size="1.5em"
-                        onClick={() => {
-                          setIdToDelete(id);
-                          setIsModalVisible(!isModalVisible);
-                        }}
-                      />
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              <tr className="border-b border-gray-200 hover:bg-gray-100">
+                <td className="px-6 py-3 text-left cursor-pointer">test</td>
+                <td className="px-6 py-3 text-left cursor-pointer">
+                  {/* {Moment(created_at).format('l')} */}
+                  06-21-2021
+                </td>
+                <td className="flex items-center justify-center h-12 text-red-500">
+                  <span className="duration-200 transform cursor-pointer hover:scale-125">
+                    <IoTrash size="1.5em" />
+                  </span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -175,4 +125,4 @@ const ShortTermGoalsPage = () => {
     </Layout>
   );
 };
-export default ShortTermGoalsPage;
+export default AchievementsPage;

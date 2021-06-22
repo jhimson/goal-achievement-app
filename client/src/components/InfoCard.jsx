@@ -30,7 +30,7 @@ const InfoCard = ({ title, color, logo, total }) => {
             />
           </svg>
         </div>
-        <div>Updated: 2:05 AM</div>
+        <div className="text-sm">Updated: 2:05 AM</div>
       </div>
     </div>
   );
