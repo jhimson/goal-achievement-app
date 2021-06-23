@@ -16,7 +16,10 @@ import Layout from '../components/Layout';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
-import { insertNewAchievement } from '../redux/actions/achievementActions';
+import {
+  insertNewAchievement,
+  getAllAchievements,
+} from '../redux/actions/achievementActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
@@ -45,6 +48,9 @@ const AchievementsPage = () => {
   );
   const achievementsCreate = useSelector((state) => state.newAchievement);
   const { success: createAchievementSuccess } = achievementsCreate;
+
+  const achievementsList =
+    useSelector((state) => state.achievementsList.achievements.data) || [];
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -52,6 +58,14 @@ const AchievementsPage = () => {
   useEffect(() => {
     if (token === null) history.push('/');
   }, [token, history]);
+
+  useEffect(() => {
+    dispatch(getAllAchievements(userId));
+  }, [dispatch, userId]);
+
+  useEffect(() => {
+    dispatch(getAllAchievements(userId));
+  }, [dispatch, userId, createAchievementSuccess]);
 
   const onSubmit = ({ achievement }) => {
     dispatch(
@@ -106,18 +120,27 @@ const AchievementsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              <tr className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-3 text-left cursor-pointer">test</td>
-                <td className="px-6 py-3 text-left cursor-pointer">
-                  {/* {Moment(created_at).format('l')} */}
-                  06-21-2021
-                </td>
-                <td className="flex items-center justify-center h-12 text-red-500">
-                  <span className="duration-200 transform cursor-pointer hover:scale-125">
-                    <IoTrash size="1.5em" />
-                  </span>
-                </td>
-              </tr>
+              {achievementsList.length !== 0 ? (
+                achievementsList.map(({ description, created_at }) => (
+                  <tr className="border-b border-gray-200 hover:bg-gray-100">
+                    <td className="px-6 py-3 text-left cursor-pointer">
+                      {description}
+                    </td>
+                    <td className="px-6 py-3 text-left cursor-pointer">
+                      {Moment(created_at).format('l')}
+                    </td>
+                    <td className="flex items-center justify-center h-12 text-red-500">
+                      <span className="duration-200 transform cursor-pointer hover:scale-125">
+                        <IoTrash size="1.5em" />
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <h1 className="p-2 text-2xl text-gray-400">
+                  No achievements found in the database!
+                </h1>
+              )}
             </tbody>
           </table>
         </div>

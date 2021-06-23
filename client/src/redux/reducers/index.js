@@ -16,7 +16,10 @@ import {
   totalLongTermGoalReducer,
 } from './longTermGoalsReducer';
 
-import { createAchievementReducer } from './achievementsReducer';
+import {
+  createAchievementReducer,
+  achievementsListReducer,
+} from './achievementsReducer';
 //!
 
 const rootReducer = combineReducers({
@@ -31,6 +34,7 @@ const rootReducer = combineReducers({
   longTermGoalDeleted: longTermGoalsDeleteReducer,
   totalLongTermGoals: totalLongTermGoalReducer,
   newAchievement: createAchievementReducer,
+  achievementsList: achievementsListReducer,
 });
 
 export default rootReducer;

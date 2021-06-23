@@ -133,30 +133,36 @@ const LongTermGoalsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {longTermGoalsList.map(({ id, description, created_at }) => (
-                <tr
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                  key={id}
-                >
-                  <td className="px-6 py-3 text-left cursor-pointer">
-                    {description}
-                  </td>
-                  <td className="px-6 py-3 text-left cursor-pointer">
-                    {Moment(created_at).format('l')}
-                  </td>
-                  <td className="flex items-center justify-center h-12 text-red-500">
-                    <span className="duration-200 transform cursor-pointer hover:scale-125">
-                      <IoTrash
-                        size="1.5em"
-                        onClick={() => {
-                          setIdToDelete(id);
-                          setIsModalVisible(!isModalVisible);
-                        }}
-                      />
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {longTermGoalsList.length !== 0 ? (
+                longTermGoalsList.map(({ id, description, created_at }) => (
+                  <tr
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                    key={id}
+                  >
+                    <td className="px-6 py-3 text-left cursor-pointer">
+                      {description}
+                    </td>
+                    <td className="px-6 py-3 text-left cursor-pointer">
+                      {Moment(created_at).format('l')}
+                    </td>
+                    <td className="flex items-center justify-center h-12 text-red-500">
+                      <span className="duration-200 transform cursor-pointer hover:scale-125">
+                        <IoTrash
+                          size="1.5em"
+                          onClick={() => {
+                            setIdToDelete(id);
+                            setIsModalVisible(!isModalVisible);
+                          }}
+                        />
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <h1 className="p-2 text-2xl text-gray-400">
+                  No long term goals found in the database!
+                </h1>
+              )}
             </tbody>
           </table>
         </div>
