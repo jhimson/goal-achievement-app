@@ -14,6 +14,9 @@ const {
   REMOVE_ACHIEVEMENT_REQUEST,
   REMOVE_ACHIEVEMENT_SUCCESS,
   REMOVE_ACHIEVEMENT_FAIL,
+  GET_TOTAL_ACHIEVEMENTS_REQUEST,
+  GET_TOTAL_ACHIEVEMENTS_SUCCESS,
+  GET_TOTAL_ACHIEVEMENTS_FAIL,
 } = achievementConstants;
 
 export const insertNewAchievement = ({ user_id, description }) => async (
@@ -82,6 +85,29 @@ export const deleteAchievement = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REMOVE_ACHIEVEMENT_FAIL,
+      payload:
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
+          : error.message,
+    });
+  }
+};
+
+export const getTotalAchievements = (user_id) => async (dispatch) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  try {
+    dispatch({ type: GET_TOTAL_ACHIEVEMENTS_REQUEST });
+    const { data } = await Axios.get(
+      `http://localhost:5000/api/v1/achievements/total/${user_id}`,
+      config
+    );
+    dispatch({ type: GET_TOTAL_ACHIEVEMENTS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_TOTAL_ACHIEVEMENTS_FAIL,
       payload:
         error.response && error.response.data.error.message
           ? error.response.data.error.message

@@ -20,6 +20,7 @@ import {
   createAchievementReducer,
   achievementsListReducer,
   removeAchievementReducer,
+  totalAchievementsReducer,
 } from './achievementsReducer';
 //!
 
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   newAchievement: createAchievementReducer,
   achievementsList: achievementsListReducer,
   achievementDeleted: removeAchievementReducer,
+  totalAchievements: totalAchievementsReducer,
 });
 
 export default rootReducer;

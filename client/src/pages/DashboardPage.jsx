@@ -12,6 +12,7 @@ import Layout from '../components/Layout';
 // ! ACTIONS
 import { getTotalShortTermGoals } from '../redux/actions/shortTermGoalActions';
 import { getTotalLongTermGoals } from '../redux/actions/longTermGoalActions';
+import { getTotalAchievements } from '../redux/actions/achievementActions';
 
 // ! ------------------------------------------------------------------>
 
@@ -34,6 +35,10 @@ const DashboardPage = () => {
     (state) => state.totalLongTermGoals.total
   );
 
+  const totalCountOfAchievements = useSelector(
+    (state) => state.totalAchievements.total
+  );
+
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -43,6 +48,7 @@ const DashboardPage = () => {
   useEffect(() => {
     dispatch(getTotalShortTermGoals(userId));
     dispatch(getTotalLongTermGoals(userId));
+    dispatch(getTotalAchievements(userId));
   }, [dispatch, userId]);
   return (
     <Layout active="dashboardPage">
@@ -100,7 +106,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Achievements"
           color="blue"
-          total={2}
+          total={
+            totalCountOfAchievements
+              ? totalCountOfAchievements.data[0].total_achievements
+              : 0
+          }
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
