@@ -1,11 +1,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
+const e = require("express");
 const asyncHandler = require("express-async-handler");
 
 const {
   createNewAchievements,
   fetchAllAchievementsByUserId,
   destroyOneAchievement,
+  findTotalAchievementsByUserId,
 } = require("../db/models/achievementsModel");
 
 // ? @Description    Insert new achievement
@@ -58,8 +60,23 @@ const deleteOneAchievement = asyncHandler(async (req, res) => {
   }
 });
 
+// ? @Description    Fetch total numbers of achievements
+// ? @Route          GET /api/v1/achievements/total/:user_id
+// ? @Access         Private/User
+const getTotalAchievements = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+  const { rows } = await findTotalAchievementsByUserId(user_id);
+  if (rows) {
+    res.status(200).json({ data: rows });
+  } else {
+    res.status(500);
+    throw new Error(`Failed to fetch total numbers of achievements`);
+  }
+});
+
 module.exports = {
   addNewAchievement,
   getAllAchievementsByUserId,
   deleteOneAchievement,
+  getTotalAchievements,
 };

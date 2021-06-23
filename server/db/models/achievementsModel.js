@@ -22,8 +22,15 @@ const destroyOneAchievement = (id) =>
     values: [id],
   });
 
+const findTotalAchievementsByUserId = (user_id) =>
+  db.query({
+    text: `SELECT COUNT(id) as total_achievements FROM tbl_achievements WHERE user_id = $1`,
+    values: [user_id],
+  });
+
 module.exports = {
   createNewAchievements,
   fetchAllAchievementsByUserId,
   destroyOneAchievement,
+  findTotalAchievementsByUserId,
 };
