@@ -7,6 +7,9 @@ const {
   GET_ACHIEVEMENTS_REQUEST,
   GET_ACHIEVEMENTS_SUCCESS,
   GET_ACHIEVEMENTS_FAIL,
+  REMOVE_ACHIEVEMENT_REQUEST,
+  REMOVE_ACHIEVEMENT_SUCCESS,
+  REMOVE_ACHIEVEMENT_FAIL,
 } = achievementConstants;
 
 export const createAchievementReducer = (state = {}, { type, payload }) => {
@@ -60,6 +63,35 @@ export const achievementsListReducer = (state = {}, { type, payload }) => {
         error: payload,
       };
 
+    default:
+      return state;
+  }
+};
+
+export const removeAchievementReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case REMOVE_ACHIEVEMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case REMOVE_ACHIEVEMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        achievement: payload,
+      };
+
+    case REMOVE_ACHIEVEMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: payload,
+      };
     default:
       return state;
   }

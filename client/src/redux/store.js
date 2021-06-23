@@ -28,6 +28,7 @@ const initialState = {
   totalLongTermGoals: { error: null, success: false, total: null },
   newAchievement: { error: null, success: false, achievement: null },
   achievementsList: { error: null, achievements: [] },
+  achievementDeleted: { error: null, success: false, achievement: {} },
 };
 
 const store = createStore(
