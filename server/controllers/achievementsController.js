@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-const e = require("express");
 const asyncHandler = require("express-async-handler");
 
 const {
@@ -35,7 +34,7 @@ const getAllAchievementsByUserId = asyncHandler(async (req, res) => {
   if (rows) {
     res
       .status(200)
-      .json({ Message: `Successfully fetch achievements`, data: rows });
+      .json({ Message: `Successfully fetched achievements`, data: rows });
   } else {
     res.status(500);
     throw new Error(`Failed to fetch achievements`);
