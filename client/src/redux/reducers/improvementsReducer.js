@@ -69,3 +69,32 @@ export const improvementsListReducer = (state = {}, { type, payload }) => {
       return state;
   }
 };
+
+export const removeImprovementReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case REMOVE_IMPROVEMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case REMOVE_IMPROVEMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        improvement: payload,
+      };
+
+    case REMOVE_IMPROVEMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+
+    default:
+      return state;
+  }
+};

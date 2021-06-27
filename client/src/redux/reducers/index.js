@@ -27,6 +27,7 @@ import {
 import {
   createImprovementReducer,
   improvementsListReducer,
+  removeImprovementReducer,
 } from './improvementsReducer';
 
 const rootReducer = combineReducers({
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
   totalAchievements: totalAchievementsReducer,
   newImprovement: createImprovementReducer,
   improvementsList: improvementsListReducer,
+  improvementDeleted: removeImprovementReducer,
 });
 
 export default rootReducer;

@@ -13,12 +13,15 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
+import ConfirmDeleteImprovementModal from '../components/ConfirmDeleteImprovementModal';
+
 //! ----------------------------------------------------->
 
 // ! ACTIONS
 import {
   insertNewImprovement,
   getAllImprovements,
+  deleteImprovement,
 } from '../redux/actions/improvementActions';
 // ! ------------------------------------------------------------------>
 
@@ -56,6 +59,8 @@ const ImprovementsPage = () => {
     (state) => state.improvementsList.improvements.data || []
   );
 
+  const improvementsDelete = useSelector((state) => state.improvementDeleted);
+  const { success: deleteImprovementSuccess } = improvementsDelete;
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -71,6 +76,10 @@ const ImprovementsPage = () => {
   useEffect(() => {
     dispatch(getAllImprovements(userId));
   }, [dispatch, createImprovementSuccess, userId]);
+
+  useEffect(() => {
+    dispatch(getAllImprovements(userId));
+  }, [dispatch, deleteImprovementSuccess, userId]);
 
   const onSubmit = ({ improvement }) => {
     dispatch(
@@ -88,6 +97,11 @@ const ImprovementsPage = () => {
   return (
     <Layout active="improvementsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+        <ConfirmDeleteImprovementModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          deleteImprovement={() => dispatch(deleteImprovement(idToDelete))}
+        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-yellow-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
@@ -141,10 +155,10 @@ const ImprovementsPage = () => {
                       <span className="duration-200 transform cursor-pointer hover:scale-125">
                         <IoTrash
                           size="1.5em"
-                          //   onClick={() => {
-                          //     setIdToDelete(id);
-                          //     setIsModalVisible(!isModalVisible);
-                          //   }}
+                          onClick={() => {
+                            setIdToDelete(id);
+                            setIsModalVisible(!isModalVisible);
+                          }}
                         />
                       </span>
                     </td>
