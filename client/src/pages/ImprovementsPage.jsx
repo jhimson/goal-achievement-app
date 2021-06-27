@@ -13,24 +13,22 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
-import ConfirmDeleteAchievementModal from '../components/ConfirmDeleteAchievementModal';
 //! ----------------------------------------------------->
 
 // ! ACTIONS
 import {
-  insertNewAchievement,
-  getAllAchievements,
-  deleteAchievement,
-} from '../redux/actions/achievementActions';
+  insertNewImprovement,
+  getAllImprovements,
+} from '../redux/actions/improvementActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
 const schema = yup.object().shape({
-  achievement: yup.string().required('*Achievement cannot be blank!'),
+  improvement: yup.string().required('*Improvement cannot be blank!'),
 });
 // ! ------------------------------------------------------------------>
 
-const AchievementsPage = () => {
+const ImprovementsPage = () => {
   // ! COMPONENT STATE VARIABLES
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
@@ -50,14 +48,14 @@ const AchievementsPage = () => {
   const userId = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
-  const achievementsCreate = useSelector((state) => state.newAchievement);
-  const { success: createAchievementSuccess } = achievementsCreate;
 
-  const achievementsList =
-    useSelector((state) => state.achievementsList.achievements.data) || [];
+  const improvementsCreate = useSelector((state) => state.newImprovement);
+  const { success: createImprovementSuccess } = improvementsCreate;
 
-  const achievementsDelete = useSelector((state) => state.achievementDeleted);
-  const { success: deleteAchievementSuccess } = achievementsDelete;
+  const improvementsList = useSelector(
+    (state) => state.improvementsList.improvements.data || []
+  );
+
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -67,23 +65,19 @@ const AchievementsPage = () => {
   }, [token, history]);
 
   useEffect(() => {
-    dispatch(getAllAchievements(userId));
+    dispatch(getAllImprovements(userId));
   }, [dispatch, userId]);
 
   useEffect(() => {
-    dispatch(getAllAchievements(userId));
-  }, [dispatch, userId, createAchievementSuccess]);
+    dispatch(getAllImprovements(userId));
+  }, [dispatch, createImprovementSuccess, userId]);
 
-  useEffect(() => {
-    dispatch(getAllAchievements(userId));
-  }, [dispatch, userId, deleteAchievementSuccess]);
-
-  const onSubmit = ({ achievement }) => {
+  const onSubmit = ({ improvement }) => {
     dispatch(
-      insertNewAchievement({ user_id: userId, description: achievement })
+      insertNewImprovement({ user_id: userId, description: improvement })
     );
-    if (createAchievementSuccess) {
-      addToast('Successfully added a new Achievement', {
+    if (createImprovementSuccess) {
+      addToast('Successfully added a new improvement', {
         appearance: 'success',
         autoDismiss: true,
       });
@@ -92,31 +86,26 @@ const AchievementsPage = () => {
   };
   // ! -------------------------------------------->
   return (
-    <Layout active="achievementsPage">
+    <Layout active="improvementsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
-        <ConfirmDeleteAchievementModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          deleteAchievement={() => dispatch(deleteAchievement(idToDelete))}
-        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
-          <div className="h-auto p-5 bg-blue-400 rounded shadow">
+          <div className="h-auto p-5 bg-yellow-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
-              Input Today's Achievement
+              Input Improvement
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col items-center text-center">
                 <div className="flex flex-col w-full lg:w-1/2 place-items-start">
                   <input
                     type="text"
-                    id="achievement"
+                    id="improvement"
                     className="block w-full px-2 py-1 font-mono text-lg rounded focus:outline-none"
-                    placeholder="Input achievement here..."
+                    placeholder="Input improvement here..."
                     ref={register}
-                    name="achievement"
+                    name="improvement"
                   />
                   <span className="text-lg font-semibold text-red-700">
-                    {errors.achievement && errors.achievement.message}
+                    {errors.improvement && errors.improvement.message}
                   </span>
                 </div>
                 <button className="px-4 py-1 mt-3 text-lg font-bold text-gray-200 duration-300 transform bg-blue-700 rounded w-52 focus:outline-none hover:scale-125">
@@ -136,8 +125,8 @@ const AchievementsPage = () => {
               </tr>
             </thead>
             <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {achievementsList.length !== 0 ? (
-                achievementsList.map(({ id, description, created_at }) => (
+              {improvementsList.length !== 0 ? (
+                improvementsList.map(({ id, description, created_at }) => (
                   <tr
                     className="border-b border-gray-200 hover:bg-gray-100"
                     key={id}
@@ -152,10 +141,10 @@ const AchievementsPage = () => {
                       <span className="duration-200 transform cursor-pointer hover:scale-125">
                         <IoTrash
                           size="1.5em"
-                          onClick={() => {
-                            setIdToDelete(id);
-                            setIsModalVisible(!isModalVisible);
-                          }}
+                          //   onClick={() => {
+                          //     setIdToDelete(id);
+                          //     setIsModalVisible(!isModalVisible);
+                          //   }}
                         />
                       </span>
                     </td>
@@ -163,7 +152,7 @@ const AchievementsPage = () => {
                 ))
               ) : (
                 <h1 className="p-2 text-2xl text-gray-400">
-                  No achievements found in the database!
+                  No improvements found in the database!
                 </h1>
               )}
             </tbody>
@@ -173,4 +162,4 @@ const AchievementsPage = () => {
     </Layout>
   );
 };
-export default AchievementsPage;
+export default ImprovementsPage;

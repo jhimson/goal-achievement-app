@@ -10,6 +10,7 @@ import DashboardPage from './pages/DashboardPage';
 import ShortTermGoalsPage from './pages/ShortTermGoalsPage';
 import LongTermGoalsPage from './pages/LongTermGoalsPage';
 import AchievementsPage from './pages/AchievementsPage';
+import ImprovementsPage from './pages/ImprovementsPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/short-term-goals" component={ShortTermGoalsPage} exact />
       <Route path="/long-term-goals" component={LongTermGoalsPage} exact />
       <Route path="/achievements" component={AchievementsPage} exact />
+      <Route path="/improvements" component={ImprovementsPage} exact />
       <Route component={PageNotFound} exact />
     </Switch>
   );

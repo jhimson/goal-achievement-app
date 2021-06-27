@@ -24,6 +24,11 @@ import {
 } from './achievementsReducer';
 //!
 
+import {
+  createImprovementReducer,
+  improvementsListReducer,
+} from './improvementsReducer';
+
 const rootReducer = combineReducers({
   userRegistered: userRegisterReducer,
   userLoggedIn: userLoginReducer,
@@ -39,6 +44,8 @@ const rootReducer = combineReducers({
   achievementsList: achievementsListReducer,
   achievementDeleted: removeAchievementReducer,
   totalAchievements: totalAchievementsReducer,
+  newImprovement: createImprovementReducer,
+  improvementsList: improvementsListReducer,
 });
 
 export default rootReducer;

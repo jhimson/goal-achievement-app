@@ -122,7 +122,13 @@ const Sidenav = ({ content, active }) => {
           </a>
           <a
             href=""
-            className="flex items-center space-x-2 px-4 py-2.5 hover:bg-blue-700 rounded hover:text-white transition duration-200"
+            className={`flex items-center space-x-2 px-4 py-2.5 ${
+              active === 'improvementsPage' ? 'bg-blue-700' : null
+            } hover:bg-blue-700 rounded hover:text-white transition duration-200`}
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/improvements');
+            }}
           >
             <IoBuildOutline size="2em" />
             <span>Needs to improve</span>
