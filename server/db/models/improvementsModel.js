@@ -23,8 +23,15 @@ const destroyOneImprovement = (id) =>
     values: [id],
   });
 
+const findTotalImprovementsByUserId = (user_id) =>
+  db.query({
+    text: `SELECT COUNT(id) as total_improvements FROM tbl_improvements WHERE user_id = $1`,
+    values: [user_id],
+  });
+
 module.exports = {
   createNewImprovement,
   findImprovementsByUserId,
   destroyOneImprovement,
+  findTotalImprovementsByUserId,
 };

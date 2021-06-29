@@ -94,3 +94,25 @@ export const deleteImprovement = (id) => async (dispatch) => {
     });
   }
 };
+export const getTotalImprovements = (user_id) => async (dispatch) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  try {
+    dispatch({ type: GET_TOTAL_IMPROVEMENTS_REQUEST });
+    const { data } = await Axios.get(
+      `http://localhost:5000/api/v1/improvements/total/${user_id}`,
+      config
+    );
+    dispatch({ type: GET_TOTAL_IMPROVEMENTS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_TOTAL_IMPROVEMENTS_FAIL,
+      payload:
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
+          : error.message,
+    });
+  }
+};

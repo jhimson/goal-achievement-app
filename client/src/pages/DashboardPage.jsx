@@ -13,6 +13,7 @@ import Layout from '../components/Layout';
 import { getTotalShortTermGoals } from '../redux/actions/shortTermGoalActions';
 import { getTotalLongTermGoals } from '../redux/actions/longTermGoalActions';
 import { getTotalAchievements } from '../redux/actions/achievementActions';
+import { getTotalImprovements } from '../redux/actions/improvementActions';
 
 // ! ------------------------------------------------------------------>
 
@@ -39,6 +40,10 @@ const DashboardPage = () => {
     (state) => state.totalAchievements.total
   );
 
+  const totalCountOfImprovements = useSelector(
+    (state) => state.totalImprovements.total
+  );
+
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -49,6 +54,7 @@ const DashboardPage = () => {
     dispatch(getTotalShortTermGoals(userId));
     dispatch(getTotalLongTermGoals(userId));
     dispatch(getTotalAchievements(userId));
+    dispatch(getTotalImprovements(userId));
   }, [dispatch, userId]);
   return (
     <Layout active="dashboardPage">
@@ -133,7 +139,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Needs to improve"
           color="yellow"
-          total={2}
+          total={
+            totalCountOfImprovements
+              ? totalCountOfImprovements.data[0].total_improvements
+              : 0
+          }
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"

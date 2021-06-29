@@ -33,6 +33,7 @@ const initialState = {
   newImprovement: { error: null, success: false, improvement: {} },
   improvementsList: { error: null, improvements: [] },
   improvementDeleted: { error: null, success: false, improvement: {} },
+  totalImprovements: { error: null, total: null },
 };
 
 const store = createStore(
