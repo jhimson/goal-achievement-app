@@ -34,6 +34,8 @@ const initialState = {
   improvementsList: { error: null, improvements: [] },
   improvementDeleted: { error: null, success: false, improvement: {} },
   totalImprovements: { error: null, total: null },
+  newMistake: { error: null, success: false, mistake: {} },
+  mistakesList: { error: null, mistakes: [] },
 };
 
 const store = createStore(
