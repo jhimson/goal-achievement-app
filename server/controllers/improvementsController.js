@@ -17,7 +17,7 @@ const addNewImprovement = asyncHandler(async (req, res) => {
   if (rows) {
     res
       .status(201)
-      .json({ Message: `Successfully insert a new improvement`, data: rows });
+      .json({ Message: `Successfully inserted a new improvement`, data: rows });
   } else {
     res.status(500);
     throw new Error(`Failed to insert a new improvement`);
@@ -25,7 +25,7 @@ const addNewImprovement = asyncHandler(async (req, res) => {
 });
 
 // ? @Description    Fetch all improvements
-// ? @Route          POST /api/v1/improvements
+// ? @Route          GET /api/v1/improvements
 // ? @Access         Private/User
 const getAllImprovementsByUserId = asyncHandler(async (req, res) => {
   const { user_id } = req.params;
@@ -41,7 +41,7 @@ const getAllImprovementsByUserId = asyncHandler(async (req, res) => {
 });
 
 // ? @Description    Delete one improvements
-// ? @Route          POST /api/v1/improvements
+// ? @Route          DELETE /api/v1/improvements
 // ? @Access         Private/User
 const deleteOneImprovement = asyncHandler(async (req, res) => {
   const { id } = req.params;
