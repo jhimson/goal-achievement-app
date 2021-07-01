@@ -31,7 +31,11 @@ import {
   totalImprovementsReducer,
 } from './improvementsReducer';
 
-import { createMistakeReducer, mistakesListReducer } from './mistakesReducer';
+import {
+  createMistakeReducer,
+  mistakesListReducer,
+  removeMistakeReducer,
+} from './mistakesReducer';
 
 const rootReducer = combineReducers({
   userRegistered: userRegisterReducer,
@@ -54,6 +58,7 @@ const rootReducer = combineReducers({
   totalImprovements: totalImprovementsReducer,
   newMistake: createMistakeReducer,
   mistakesList: mistakesListReducer,
+  mistakeDeleted: removeMistakeReducer,
 });
 
 export default rootReducer;

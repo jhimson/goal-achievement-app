@@ -13,6 +13,7 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
+import ConfirmDeleteMistakeModal from '../components/ConfirmDeleteMistakeModal';
 
 //! ----------------------------------------------------->
 
@@ -20,6 +21,7 @@ import Layout from '../components/Layout';
 import {
   insertNewMistake,
   getAllMistakes,
+  deleteMistake,
 } from '../redux/actions/mistakesActions';
 // ! ------------------------------------------------------------------>
 
@@ -56,6 +58,9 @@ const MistakesPage = () => {
   const mistakesList = useSelector(
     (state) => state.mistakesList.mistakes.data || []
   );
+
+  const mistakeDelete = useSelector((state) => state.mistakeDeleted);
+  const { success: mistakeDeletedSuccess } = mistakeDelete;
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -72,6 +77,10 @@ const MistakesPage = () => {
     dispatch(getAllMistakes(userId));
   }, [dispatch, mistakeCreateSuccess, userId]);
 
+  useEffect(() => {
+    dispatch(getAllMistakes(userId));
+  }, [dispatch, userId, mistakeDeletedSuccess]);
+
   const onSubmit = ({ mistake }) => {
     dispatch(insertNewMistake({ user_id: userId, description: mistake }));
     reset();
@@ -80,6 +89,11 @@ const MistakesPage = () => {
   return (
     <Layout active="mistakesPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+        <ConfirmDeleteMistakeModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          deleteMistake={() => dispatch(deleteMistake(idToDelete))}
+        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-indigo-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
@@ -134,8 +148,8 @@ const MistakesPage = () => {
                         <IoTrash
                           size="1.5em"
                           onClick={() => {
-                            // setIdToDelete(id);
-                            // setIsModalVisible(!isModalVisible);
+                            setIdToDelete(id);
+                            setIsModalVisible(!isModalVisible);
                           }}
                         />
                       </span>

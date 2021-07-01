@@ -8,6 +8,9 @@ const {
   GET_MISTAKES_REQUEST,
   GET_MISTAKES_SUCCESS,
   GET_MISTAKES_FAIL,
+  REMOVE_MISTAKE_REQUEST,
+  REMOVE_MISTAKE_SUCCESS,
+  REMOVE_MISTAKE_FAIL,
 } = mistakesConstants;
 
 export const createMistakeReducer = (state = {}, { type, payload }) => {
@@ -58,6 +61,36 @@ export const mistakesListReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: false,
+        error: payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const removeMistakeReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case REMOVE_MISTAKE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case REMOVE_MISTAKE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        mistake: {},
+      };
+
+    case REMOVE_MISTAKE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
         error: payload,
       };
 

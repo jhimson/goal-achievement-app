@@ -11,6 +11,9 @@ const {
   GET_MISTAKES_REQUEST,
   GET_MISTAKES_SUCCESS,
   GET_MISTAKES_FAIL,
+  REMOVE_MISTAKE_REQUEST,
+  REMOVE_MISTAKE_SUCCESS,
+  REMOVE_MISTAKE_FAIL,
 } = mistakesConstants;
 
 export const insertNewMistake = ({ user_id, description }) => async (
@@ -56,6 +59,29 @@ export const getAllMistakes = (user_id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_MISTAKES_FAIL,
+      payload:
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteMistake = (id) => async (dispatch) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  try {
+    dispatch({ type: REMOVE_MISTAKE_REQUEST });
+    const { data } = await Axios.delete(
+      `http://localhost:5000/api/v1/mistakes/${id}`,
+      config
+    );
+    dispatch({ type: REMOVE_MISTAKE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: REMOVE_MISTAKE_FAIL,
       payload:
         error.response && error.response.data.error.message
           ? error.response.data.error.message
