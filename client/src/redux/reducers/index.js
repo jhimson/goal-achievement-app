@@ -42,6 +42,7 @@ import {
   createLessonReducer,
   lessonsListReducer,
   removeLessonReducer,
+  totalLessonsReducer,
 } from './lessonsReducer';
 
 const rootReducer = combineReducers({
@@ -70,6 +71,7 @@ const rootReducer = combineReducers({
   newLesson: createLessonReducer,
   lessonsList: lessonsListReducer,
   lessonDeleted: removeLessonReducer,
+  totalLessons: totalLessonsReducer,
 });
 
 export default rootReducer;

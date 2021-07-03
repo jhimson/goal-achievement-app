@@ -6,6 +6,7 @@ const {
   createNewLesson,
   findLessonsByUserId,
   destroyOneLesson,
+  findTotalLessonsByUserId,
 } = require("../db/models/lessonsModel");
 
 // ? @Description    Insert new lesson
@@ -60,8 +61,23 @@ const deleteOneLesson = asyncHandler(async (req, res) => {
   }
 });
 
+// ? @Description    Fetch total numbers of lessons
+// ? @Route          GET /api/v1/lessons/total/:user_id
+// ? @Access         Private/User
+const getTotalLessons = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+  const { rows } = await findTotalLessonsByUserId(user_id);
+  if (rows) {
+    res.status(200).json({ data: rows });
+  } else {
+    res.status(500);
+    throw new Error(`Failed to fetch total numbers of lessons`);
+  }
+});
+
 module.exports = {
   addNewLesson,
   getAllLessonsByUserId,
   deleteOneLesson,
+  getTotalLessons,
 };

@@ -100,3 +100,30 @@ export const removeLessonReducer = (state = {}, { type, payload }) => {
       return state;
   }
 };
+
+export const totalLessonsReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case GET_TOTAL_LESSONS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_TOTAL_LESSONS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        total: payload,
+      };
+
+    case GET_TOTAL_LESSONS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+
+    default:
+      return state;
+  }
+};

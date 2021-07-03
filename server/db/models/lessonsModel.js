@@ -23,8 +23,15 @@ const destroyOneLesson = (id) =>
     values: [id],
   });
 
+const findTotalLessonsByUserId = (user_id) =>
+  db.query({
+    text: `SELECT COUNT(id) as total_lessons FROM tbl_lessons WHERE user_id = $1`,
+    values: [user_id],
+  });
+
 module.exports = {
   createNewLesson,
   findLessonsByUserId,
   destroyOneLesson,
+  findTotalLessonsByUserId,
 };

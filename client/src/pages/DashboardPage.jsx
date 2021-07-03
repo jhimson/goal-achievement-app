@@ -15,6 +15,7 @@ import { getTotalLongTermGoals } from '../redux/actions/longTermGoalActions';
 import { getTotalAchievements } from '../redux/actions/achievementActions';
 import { getTotalImprovements } from '../redux/actions/improvementActions';
 import { getTotalMistakes } from '../redux/actions/mistakesActions';
+import { getTotalLessons } from '../redux/actions/lessonActions';
 
 // ! ------------------------------------------------------------------>
 
@@ -49,6 +50,8 @@ const DashboardPage = () => {
     (state) => state.totalMistakes.total
   );
 
+  const totalCountOfLessons = useSelector((state) => state.totalLessons.total);
+
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -61,6 +64,7 @@ const DashboardPage = () => {
     dispatch(getTotalAchievements(userId));
     dispatch(getTotalImprovements(userId));
     dispatch(getTotalMistakes(userId));
+    dispatch(getTotalLessons(userId));
   }, [dispatch, userId]);
   return (
     <Layout active="dashboardPage">
@@ -201,7 +205,9 @@ const DashboardPage = () => {
         <InfoCard
           title="Lesson learned"
           color="pink"
-          total={2}
+          total={
+            totalCountOfLessons ? totalCountOfLessons.data[0].total_lessons : 0
+          }
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"
