@@ -115,6 +115,7 @@ export const totalLongTermGoalReducer = (state = {}, { type, payload }) => {
     case GET_TOTAL_LONG_TERM_GOALS_SUCCESS:
       return {
         ...state,
+        loading: false,
         success: true,
         total: payload,
       };

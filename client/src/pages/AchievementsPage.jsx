@@ -14,6 +14,8 @@ import { IoTrash } from 'react-icons/io5';
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
 import ConfirmDeleteAchievementModal from '../components/ConfirmDeleteAchievementModal';
+import Spinner from '../components/Spinner';
+
 //! ----------------------------------------------------->
 
 // ! ACTIONS
@@ -55,6 +57,10 @@ const AchievementsPage = () => {
 
   const achievementsList =
     useSelector((state) => state.achievementsList.achievements.data) || [];
+
+  const achievementsIsLoading = useSelector(
+    (state) => state.achievementsList.loading
+  );
 
   const achievementsDelete = useSelector((state) => state.achievementDeleted);
   const { success: deleteAchievementSuccess } = achievementsDelete;
@@ -127,47 +133,61 @@ const AchievementsPage = () => {
           </div>
         </div>
         <div className="items-center justify-center w-full h-screen px-3 font-sans bg-gray-100 lg:w-11/12 xl:p-10 md:h-auto">
-          <table className="w-full bg-white rounded-lg shadow-lg table-auto border-1">
-            <thead>
-              <tr className="text-sm leading-normal text-center text-gray-600 uppercase bg-gray-200 lg:text-lg">
-                <th className="px-6 py-4 text-left bg-gray-200">Description</th>
-                <th className="px-6 py-4 text-left bg-gray-200">Date</th>
-                <th className="px-6 py-4 text-center bg-gray-200">Action</th>
-              </tr>
-            </thead>
-            <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-              {achievementsList.length !== 0 ? (
-                achievementsList.map(({ id, description, created_at }) => (
-                  <tr
-                    className="border-b border-gray-200 hover:bg-gray-100"
-                    key={id}
-                  >
-                    <td className="px-6 py-3 text-left cursor-pointer">
-                      {description}
-                    </td>
-                    <td className="px-6 py-3 text-left cursor-pointer">
-                      {Moment(created_at).format('l')}
-                    </td>
-                    <td className="flex items-center justify-center h-12 text-red-500">
-                      <span className="duration-200 transform cursor-pointer hover:scale-125">
-                        <IoTrash
-                          size="1.5em"
-                          onClick={() => {
-                            setIdToDelete(id);
-                            setIsModalVisible(!isModalVisible);
-                          }}
-                        />
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <h1 className="p-2 text-2xl text-gray-400">
-                  No achievements found in the database!
-                </h1>
-              )}
-            </tbody>
-          </table>
+          {achievementsIsLoading ? (
+            <div className="flex items-center justify-center">
+              <Spinner
+                loading={achievementsIsLoading}
+                type="Oval"
+                height="100"
+                width="100"
+                color="lightgray"
+              />
+            </div>
+          ) : (
+            <table className="w-full bg-white rounded-lg shadow-lg table-auto border-1">
+              <thead>
+                <tr className="text-sm leading-normal text-center text-gray-600 uppercase bg-gray-200 lg:text-lg">
+                  <th className="px-6 py-4 text-left bg-gray-200">
+                    Description
+                  </th>
+                  <th className="px-6 py-4 text-left bg-gray-200">Date</th>
+                  <th className="px-6 py-4 text-center bg-gray-200">Action</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm font-light text-gray-600 lg:text-lg">
+                {achievementsList.length !== 0 ? (
+                  achievementsList.map(({ id, description, created_at }) => (
+                    <tr
+                      className="border-b border-gray-200 hover:bg-gray-100"
+                      key={id}
+                    >
+                      <td className="px-6 py-3 text-left cursor-pointer">
+                        {description}
+                      </td>
+                      <td className="px-6 py-3 text-left cursor-pointer">
+                        {Moment(created_at).format('l')}
+                      </td>
+                      <td className="flex items-center justify-center h-12 text-red-500">
+                        <span className="duration-200 transform cursor-pointer hover:scale-125">
+                          <IoTrash
+                            size="1.5em"
+                            onClick={() => {
+                              setIdToDelete(id);
+                              setIsModalVisible(!isModalVisible);
+                            }}
+                          />
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <h1 className="p-2 text-lg text-gray-400 lg:text-2xl">
+                    No achievements found!
+                  </h1>
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </Layout>

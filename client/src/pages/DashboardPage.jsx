@@ -52,6 +52,26 @@ const DashboardPage = () => {
 
   const totalCountOfLessons = useSelector((state) => state.totalLessons.total);
 
+  const shortTermGoalsIsLoading = useSelector(
+    (state) => state.totalShortTermGoals.loading
+  );
+
+  const longTermGoalIsLoading = useSelector(
+    (state) => state.totalLongTermGoals.loading
+  );
+
+  const achievementsIsLoading = useSelector(
+    (state) => state.totalAchievements.loading
+  );
+
+  const improvementsIsLoading = useSelector(
+    (state) => state.totalImprovements.loading
+  );
+
+  const mistakesIsLoading = useSelector((state) => state.totalMistakes.loading);
+
+  const lessonsIsLoading = useSelector((state) => state.totalLessons.loading);
+
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -93,6 +113,7 @@ const DashboardPage = () => {
               />
             </svg>
           }
+          isLoading={shortTermGoalsIsLoading}
         />
         <InfoCard
           title="Long term goals"
@@ -118,6 +139,7 @@ const DashboardPage = () => {
               />
             </svg>
           }
+          isLoading={longTermGoalIsLoading}
         />
         <InfoCard
           title="Achievements"
@@ -145,6 +167,7 @@ const DashboardPage = () => {
               />
             </svg>
           }
+          isLoading={achievementsIsLoading}
         />
         <InfoCard
           title="Needs to improve"
@@ -176,6 +199,7 @@ const DashboardPage = () => {
               />
             </svg>
           }
+          isLoading={improvementsIsLoading}
         />
         <InfoCard
           title="Mistakes/Regrets"
@@ -201,6 +225,7 @@ const DashboardPage = () => {
               />
             </svg>
           }
+          isLoading={mistakesIsLoading}
         />
         <InfoCard
           title="Lesson learned"
@@ -224,6 +249,7 @@ const DashboardPage = () => {
               />
             </svg>
           }
+          isLoading={lessonsIsLoading}
         />
       </div>
     </Layout>

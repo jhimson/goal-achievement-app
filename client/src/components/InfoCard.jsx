@@ -1,12 +1,16 @@
 import React from 'react';
 
-const InfoCard = ({ title, color, logo, total }) => {
+import Spinner from './Spinner';
+
+const InfoCard = ({ title, color, logo, total, isLoading }) => {
   const x = 0;
   return (
     <div className="w-full bg-white rounded-lg shadow-xl ">
       <div className="flex justify-between p-5">
         <div>
-          <div className={`text-${color}-500`}>{total}</div>
+          <div className={`text-${color}-500`}>
+            {isLoading ? <Spinner loading={isLoading} /> : total}
+          </div>
           <div className="font-mono text-lg text-gray-500">{title}</div>
         </div>
         <div className="items-center">{logo}</div>
