@@ -34,7 +34,7 @@ export const addNewLongTermGoal = ({ user_id, description }) => async (
     dispatch({ type: ADD_LONG_TERM_GOAL_REQUEST });
 
     const { data } = await Axios.post(
-      `http://localhost:5000/api/v1/long-term-goals`,
+      `${process.env.REACT_APP_HOST}/api/v1/long-term-goals`,
       { id, user_id, description },
       config
     );
@@ -60,7 +60,7 @@ export const getLongTermGoals = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: LONG_TERM_GOALS_LIST_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/long-term-goals/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/long-term-goals/${user_id}`,
       config
     );
     dispatch({ type: LONG_TERM_GOALS_LIST_SUCCESS, payload: data });
@@ -86,7 +86,7 @@ export const deleteLongTermGoal = (id) => async (dispatch) => {
     dispatch({ type: REMOVE_LONG_TERM_GOAL_REQUEST });
 
     const { data } = await Axios.delete(
-      `http://localhost:5000/api/v1/long-term-goals/${id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/long-term-goals/${id}`,
       config
     );
     dispatch({ type: REMOVE_LONG_TERM_GOAL_SUCCESS, payload: data });
@@ -109,7 +109,7 @@ export const getTotalLongTermGoals = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_TOTAL_LONG_TERM_GOALS_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/long-term-goals/total/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/long-term-goals/total/${user_id}`,
       config
     );
     dispatch({ type: GET_TOTAL_LONG_TERM_GOALS_SUCCESS, payload: data });

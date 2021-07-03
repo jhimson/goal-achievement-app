@@ -30,7 +30,7 @@ export const insertNewImprovement = ({ user_id, description }) => async (
   try {
     dispatch({ type: CREATE_IMPROVEMENT_REQUEST });
     const { data } = await Axios.post(
-      `http://localhost:5000/api/v1/improvements`,
+      `${process.env.REACT_APP_HOST}/api/v1/improvements`,
       {
         id,
         user_id,
@@ -58,7 +58,7 @@ export const getAllImprovements = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_IMPROVEMENTS_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/improvements/${user_id}`
+      `${process.env.REACT_APP_HOST}/api/v1/improvements/${user_id}`
     );
     dispatch({ type: GET_IMPROVEMENTS_SUCCESS, payload: data });
   } catch (error) {
@@ -80,7 +80,7 @@ export const deleteImprovement = (id) => async (dispatch) => {
   try {
     dispatch({ type: REMOVE_IMPROVEMENT_REQUEST });
     const { data } = await Axios.delete(
-      `http://localhost:5000/api/v1/improvements/${id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/improvements/${id}`,
       config
     );
     dispatch({ type: REMOVE_IMPROVEMENT_SUCCESS, payload: data });
@@ -102,7 +102,7 @@ export const getTotalImprovements = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_TOTAL_IMPROVEMENTS_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/improvements/total/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/improvements/total/${user_id}`,
       config
     );
     dispatch({ type: GET_TOTAL_IMPROVEMENTS_SUCCESS, payload: data });

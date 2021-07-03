@@ -13,6 +13,8 @@ import logo from '../assets/images/login-register-logo.png';
 // ! COMPONENTS
 import Layout from '../components/Layout';
 import FlashMessage from '../components/FlashMessage';
+import Spinner from '../components/Spinner';
+
 // ! ------------------------------------------------------------------>
 
 // ! ACTIONS
@@ -38,6 +40,7 @@ const LoginPage = () => {
   const token = useSelector(
     (state) => state.userLoggedIn.userLoggedInInfo.token
   );
+  const loading = useSelector((state) => state.userLoggedIn.loading);
   // ! ----------------------------------------------------------------->
 
   // ! FUNCTIONS
@@ -55,56 +58,60 @@ const LoginPage = () => {
   return (
     <Layout active="loginPage">
       <div className="flex items-center justify-center h-screen">
-        <div className="w-full h-auto p-5 bg-gray-200 rounded-lg md:w-3/4 lg:w-1/2 xl:w-1/4">
-          {error ? <FlashMessage type="danger" message={error} /> : null}
-          <div>
-            <img src={logo} alt="" className="p-10 mb-10" />
+        {loading ? (
+          <Spinner loading={loading} />
+        ) : (
+          <div className="w-full h-auto p-5 bg-gray-200 rounded-lg md:w-3/4 lg:w-1/2 xl:w-1/4">
+            {error ? <FlashMessage type="danger" message={error} /> : null}
+            <div>
+              <img src={logo} alt="" className="p-10 mb-10" />
+            </div>
+            <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
+              <h1 className="text-2xl font-bold text-center">Account Login</h1>
+              <div>
+                <label htmlFor="username" className="font-semibold">
+                  Username:
+                </label>
+                <input
+                  ref={register}
+                  type="text"
+                  name="username"
+                  className="block w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500"
+                />
+                <span className="font-semibold text-red-700">
+                  {errors.username && errors.username.message}
+                </span>
+              </div>
+              <div>
+                <label htmlFor="password" className="font-semibold">
+                  Password:
+                </label>
+                <input
+                  ref={register}
+                  type="password"
+                  name="password"
+                  className="block w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500"
+                />
+                <span className="font-semibold text-red-700">
+                  {errors.password && errors.password.message}
+                </span>
+              </div>
+              <div>
+                <button className="w-full py-2 mt-5 text-lg font-bold bg-blue-400 rounded focus:outline-none focus:ring-2 ">
+                  Login
+                </button>
+              </div>
+              <div>
+                <p className="mt-5 font-semibold text-center text-md">
+                  Don't have an account?{' '}
+                  <Link to="/register" className="text-purple-600">
+                    Sign up
+                  </Link>
+                </p>
+              </div>
+            </form>
           </div>
-          <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="text-2xl font-bold text-center">Account Login</h1>
-            <div>
-              <label htmlFor="username" className="font-semibold">
-                Username:
-              </label>
-              <input
-                ref={register}
-                type="text"
-                name="username"
-                className="block w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500"
-              />
-              <span className="font-semibold text-red-700">
-                {errors.username && errors.username.message}
-              </span>
-            </div>
-            <div>
-              <label htmlFor="password" className="font-semibold">
-                Password:
-              </label>
-              <input
-                ref={register}
-                type="password"
-                name="password"
-                className="block w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500"
-              />
-              <span className="font-semibold text-red-700">
-                {errors.password && errors.password.message}
-              </span>
-            </div>
-            <div>
-              <button className="w-full py-2 mt-5 text-lg font-bold bg-blue-400 rounded focus:outline-none focus:ring-2 ">
-                Login
-              </button>
-            </div>
-            <div>
-              <p className="mt-5 font-semibold text-center text-md">
-                Don't have an account?{' '}
-                <Link to="/register" className="text-purple-600">
-                  Sign up
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
+        )}
       </div>
     </Layout>
   );

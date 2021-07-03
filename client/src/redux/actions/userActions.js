@@ -17,6 +17,9 @@ const {
   USER_LOGOUT,
 } = userConstants;
 
+// http://localhost:5000
+const host = `https://protected-refuge-98748.herokuapp.com`;
+
 export const registerNewUser = ({
   username,
   firstname,
@@ -33,7 +36,7 @@ export const registerNewUser = ({
     dispatch({ type: USER_REGISTER_REQUEST });
 
     const { data } = await Axios.post(
-      'https://protected-refuge-98748.herokuapp.com/api/v1/users',
+      `${process.env.REACT_APP_HOST}/api/v1/users`,
       { user_id, firstname, lastname, username, password },
       config
     );
@@ -64,7 +67,7 @@ export const userLogin = ({ username, password }) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_REQUEST });
 
     const { data } = await Axios.post(
-      'https://protected-refuge-98748.herokuapp.com/api/v1/users/login',
+      `${process.env.REACT_APP_HOST}/api/v1/users/login`,
       { username, password },
       config
     );

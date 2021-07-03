@@ -12,6 +12,7 @@ import LongTermGoalsPage from './pages/LongTermGoalsPage';
 import AchievementsPage from './pages/AchievementsPage';
 import ImprovementsPage from './pages/ImprovementsPage';
 import MistakesPage from './pages/MistakesPage';
+import LessonsPage from './pages/LessonsPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/achievements" component={AchievementsPage} exact />
       <Route path="/improvements" component={ImprovementsPage} exact />
       <Route path="/mistakes" component={MistakesPage} exact />
+      <Route path="/lessons" component={LessonsPage} exact />
       <Route component={PageNotFound} exact />
     </Switch>
   );

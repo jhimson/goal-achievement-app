@@ -31,7 +31,7 @@ export const insertNewAchievement = ({ user_id, description }) => async (
     dispatch({ type: CREATE_ACHIEVEMENT_REQUEST });
 
     const { data } = await Axios.post(
-      `http://localhost:5000/api/v1/achievements`,
+      `${process.env.REACT_APP_HOST}/api/v1/achievements`,
       { id, user_id, description },
       config
     );
@@ -56,7 +56,7 @@ export const getAllAchievements = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_ACHIEVEMENTS_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/achievements/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/achievements/${user_id}`,
       config
     );
     dispatch({ type: GET_ACHIEVEMENTS_SUCCESS, payload: data });
@@ -78,7 +78,7 @@ export const deleteAchievement = (id) => async (dispatch) => {
   try {
     dispatch({ type: REMOVE_ACHIEVEMENT_REQUEST });
     const { data } = await Axios.delete(
-      `http://localhost:5000/api/v1/achievements/${id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/achievements/${id}`,
       config
     );
     dispatch({ type: REMOVE_ACHIEVEMENT_SUCCESS, payload: data });
@@ -101,7 +101,7 @@ export const getTotalAchievements = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_TOTAL_ACHIEVEMENTS_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/achievements/total/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/achievements/total/${user_id}`,
       config
     );
     dispatch({ type: GET_TOTAL_ACHIEVEMENTS_SUCCESS, payload: data });

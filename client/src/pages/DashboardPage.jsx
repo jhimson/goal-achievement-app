@@ -14,6 +14,7 @@ import { getTotalShortTermGoals } from '../redux/actions/shortTermGoalActions';
 import { getTotalLongTermGoals } from '../redux/actions/longTermGoalActions';
 import { getTotalAchievements } from '../redux/actions/achievementActions';
 import { getTotalImprovements } from '../redux/actions/improvementActions';
+import { getTotalMistakes } from '../redux/actions/mistakesActions';
 
 // ! ------------------------------------------------------------------>
 
@@ -44,6 +45,10 @@ const DashboardPage = () => {
     (state) => state.totalImprovements.total
   );
 
+  const totalCountOfMistakes = useSelector(
+    (state) => state.totalMistakes.total
+  );
+
   // ! -------------------------------------------->
 
   useEffect(() => {
@@ -55,6 +60,7 @@ const DashboardPage = () => {
     dispatch(getTotalLongTermGoals(userId));
     dispatch(getTotalAchievements(userId));
     dispatch(getTotalImprovements(userId));
+    dispatch(getTotalMistakes(userId));
   }, [dispatch, userId]);
   return (
     <Layout active="dashboardPage">
@@ -170,7 +176,11 @@ const DashboardPage = () => {
         <InfoCard
           title="Mistakes/Regrets"
           color="indigo"
-          total={2}
+          total={
+            totalCountOfMistakes
+              ? totalCountOfMistakes.data[0].total_mistakes
+              : 0
+          }
           logo={
             <svg
               xmlns="http://www.w3.org/2000/svg"

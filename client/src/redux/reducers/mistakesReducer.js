@@ -11,6 +11,9 @@ const {
   REMOVE_MISTAKE_REQUEST,
   REMOVE_MISTAKE_SUCCESS,
   REMOVE_MISTAKE_FAIL,
+  GET_TOTAL_MISTAKES_REQUEST,
+  GET_TOTAL_MISTAKES_SUCCESS,
+  GET_TOTAL_MISTAKES_FAIL,
 } = mistakesConstants;
 
 export const createMistakeReducer = (state = {}, { type, payload }) => {
@@ -91,6 +94,33 @@ export const removeMistakeReducer = (state = {}, { type, payload }) => {
         ...state,
         loading: false,
         success: false,
+        error: payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const totalMistakesReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case GET_TOTAL_MISTAKES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_TOTAL_MISTAKES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        total: payload,
+      };
+
+    case GET_TOTAL_MISTAKES_FAIL:
+      return {
+        ...state,
+        loading: false,
         error: payload,
       };
 

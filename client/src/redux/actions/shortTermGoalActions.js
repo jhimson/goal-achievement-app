@@ -5,7 +5,7 @@ import { shortTermGoalsConstants } from '../types';
 
 const { uuid } = require('uuidv4');
 // https://goals-achievement.herokuapp.com/
-// http://localhost:5000/
+// ${process.env.REACT_APP_HOST}/
 
 const {
   ADD_SHORT_TERM_GOAL_REQUEST,
@@ -32,7 +32,7 @@ export const addNewShortTermGoal = ({ user_id, description }) => async (
   try {
     dispatch({ type: ADD_SHORT_TERM_GOAL_REQUEST });
     const { data } = await Axios.post(
-      'http://localhost:5000/api/v1/short-term-goals',
+      `${process.env.REACT_APP_HOST}/api/v1/short-term-goals`,
       { id, user_id, description },
       config
     );
@@ -55,7 +55,7 @@ export const deleteShortTermGoal = (id) => async (dispatch) => {
   try {
     dispatch({ type: REMOVE_SHORT_TERM_GOAL_REQUEST });
     const { data } = await Axios.delete(
-      `http://localhost:5000/api/v1/short-term-goals/${id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/short-term-goals/${id}`,
       config
     );
     dispatch({ type: REMOVE_SHORT_TERM_GOAL_SUCCESS, payload: data });
@@ -77,7 +77,7 @@ export const getShortTermGoals = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: SHORT_TERM_GOALS_LIST_REQUEST });
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/short-term-goals/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/short-term-goals/${user_id}`,
       config
     );
     dispatch({ type: SHORT_TERM_GOALS_LIST_SUCCESS, payload: data });
@@ -100,7 +100,7 @@ export const getTotalShortTermGoals = (user_id) => async (dispatch) => {
     dispatch({ type: GET_TOTAL_SHORT_TERM_GOALS_REQUEST });
 
     const { data } = await Axios.get(
-      `http://localhost:5000/api/v1/short-term-goals/total/${user_id}`,
+      `${process.env.REACT_APP_HOST}/api/v1/short-term-goals/total/${user_id}`,
       config
     );
     dispatch({ type: GET_TOTAL_SHORT_TERM_GOALS_SUCCESS, payload: data });

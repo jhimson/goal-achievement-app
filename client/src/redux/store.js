@@ -17,6 +17,7 @@ const initialState = {
   userLoggedIn: {
     userLoggedInInfo: userLoggedInInfoStoredFromStorage,
     error: null,
+    loading: false,
   },
   newShortTermGoal: { error: null, success: false, goal: {} },
   shortTermGoalDeleted: { error: null, goal: {}, success: false },
@@ -37,6 +38,9 @@ const initialState = {
   newMistake: { error: null, success: false, mistake: {} },
   mistakesList: { error: null, mistakes: [] },
   mistakeDeleted: { error: null, success: false, mistake: {} },
+  totalMistakes: { error: null, total: null },
+  newLesson: { error: null, success: false, lesson: {} },
+  lessonsList: { error: null, lessons: [] },
 };
 
 const store = createStore(
