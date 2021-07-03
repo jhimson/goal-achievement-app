@@ -38,7 +38,11 @@ import {
   totalMistakesReducer,
 } from './mistakesReducer';
 
-import { createLessonReducer, lessonsListReducer } from './lessonsReducer';
+import {
+  createLessonReducer,
+  lessonsListReducer,
+  removeLessonReducer,
+} from './lessonsReducer';
 
 const rootReducer = combineReducers({
   userRegistered: userRegisterReducer,
@@ -65,6 +69,7 @@ const rootReducer = combineReducers({
   totalMistakes: totalMistakesReducer,
   newLesson: createLessonReducer,
   lessonsList: lessonsListReducer,
+  lessonDeleted: removeLessonReducer,
 });
 
 export default rootReducer;

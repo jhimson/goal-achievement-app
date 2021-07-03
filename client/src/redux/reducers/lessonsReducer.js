@@ -71,3 +71,32 @@ export const lessonsListReducer = (state = {}, { type, payload }) => {
       return state;
   }
 };
+
+export const removeLessonReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case REMOVE_LESSON_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case REMOVE_LESSON_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        lesson: payload,
+      };
+
+    case REMOVE_LESSON_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};

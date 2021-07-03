@@ -13,10 +13,16 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
+import ConfirmDeleteLessonModal from '../components/ConfirmDeleteLessonModal';
+
 //! ----------------------------------------------------->
 
 // ! ACTIONS
-import { insertNewLesson, getAllLessons } from '../redux/actions/lessonActions';
+import {
+  insertNewLesson,
+  getAllLessons,
+  deleteLesson,
+} from '../redux/actions/lessonActions';
 // ! ------------------------------------------------------------------>
 
 // ! VALIDATION SCHEMAS
@@ -46,11 +52,15 @@ const LessonsPage = () => {
     (state) => state.userLoggedIn.userLoggedInInfo.user_id
   );
 
+  const lessonsList =
+    useSelector((state) => state.lessonsList.lessons.data) || [];
+
   const lessonCreate = useSelector((state) => state.newLesson);
   const { success: lessonCreateSuccess } = lessonCreate;
 
-  const lessonsList =
-    useSelector((state) => state.lessonsList.lessons.data) || [];
+  const lessonDelete = useSelector((state) => state.lessonDeleted);
+  const { success: lessonDeleteSuccess } = lessonDelete;
+
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -62,6 +72,14 @@ const LessonsPage = () => {
   useEffect(() => {
     dispatch(getAllLessons(userId));
   }, [dispatch, userId]);
+
+  useEffect(() => {
+    dispatch(getAllLessons(userId));
+  }, [dispatch, userId, lessonCreateSuccess]);
+
+  useEffect(() => {
+    dispatch(getAllLessons(userId));
+  }, [dispatch, userId, lessonDeleteSuccess]);
 
   const onSubmit = ({ lesson }) => {
     dispatch(insertNewLesson({ user_id: userId, description: lesson }));
@@ -77,6 +95,11 @@ const LessonsPage = () => {
   return (
     <Layout active="lessonsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+        <ConfirmDeleteLessonModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          deleteLesson={() => dispatch(deleteLesson(idToDelete))}
+        />
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-pink-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
@@ -131,8 +154,8 @@ const LessonsPage = () => {
                         <IoTrash
                           size="1.5em"
                           onClick={() => {
-                            // setIdToDelete(id);
-                            // setIsModalVisible(!isModalVisible);
+                            setIdToDelete(id);
+                            setIsModalVisible(!isModalVisible);
                           }}
                         />
                       </span>

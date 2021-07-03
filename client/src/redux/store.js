@@ -41,6 +41,7 @@ const initialState = {
   totalMistakes: { error: null, total: null },
   newLesson: { error: null, success: false, lesson: {} },
   lessonsList: { error: null, lessons: [] },
+  lessonDeleted: { error: null, success: false, lesson: {} },
 };
 
 const store = createStore(

@@ -75,3 +75,27 @@ export const getAllLessons = (user_id) => async (dispatch) => {
     });
   }
 };
+
+export const deleteLesson = (id) => async (dispatch) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  try {
+    dispatch({ type: REMOVE_LESSON_REQUEST });
+
+    const { data } = await Axios.delete(
+      `${process.env.REACT_APP_HOST}/api/v1/lessons/${id}`,
+      config
+    );
+    dispatch({ type: REMOVE_LESSON_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: REMOVE_LESSON_FAIL,
+      payload:
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
+          : error.message,
+    });
+  }
+};
