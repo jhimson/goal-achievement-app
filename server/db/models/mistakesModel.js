@@ -23,8 +23,15 @@ const destroyOneMistake = (id) =>
     values: [id],
   });
 
+const findTotalMistakesByUserId = (user_id) =>
+  db.query({
+    text: `SELECT COUNT(id) as total_mistakes FROM tbl_mistakes WHERE user_id = $1`,
+    values: [user_id],
+  });
+
 module.exports = {
   createNewMistake,
   findMistakesByUserId,
   destroyOneMistake,
+  findTotalMistakesByUserId,
 };
