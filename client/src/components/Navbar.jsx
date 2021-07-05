@@ -2,9 +2,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/nav-logo.png';
 
 const Navbar = () => {
+  const history = useHistory();
   const [mobileMenuIsVisible, setMobileMenuIsVisible] = useState(false);
   return (
     <nav className="font-bold bg-gray-900">
@@ -22,12 +24,23 @@ const Navbar = () => {
           </div>
           {/* secondary nav */}
           <div className="items-center hidden space-x-1 md:flex">
-            <a href="#" className="px-3 py-5 text-gray-200">
+            <a
+              href="#"
+              className="px-3 py-5 text-gray-200"
+              onClick={(e) => {
+                e.preventDefault();
+                history.push('/');
+              }}
+            >
               Login
             </a>
             <a
               href="#"
               className="px-3 py-2 text-yellow-900 transition duration-300 bg-yellow-400 rounded hover:bg-yellow-300 hover:text-yellow-800"
+              onClick={(e) => {
+                e.preventDefault();
+                history.push('/register');
+              }}
             >
               Signup
             </a>
@@ -65,12 +78,20 @@ const Navbar = () => {
         <a
           href="#"
           className="block px-4 py-2 text-sm text-gray-200 transition duration-200 rounded hover:bg-blue-600 "
+          onClick={(e) => {
+            e.preventDefault();
+            history.push('/');
+          }}
         >
           Login
         </a>
         <a
           href="#"
           className="inline-block px-2 py-1 text-sm text-yellow-900 transition duration-300 bg-yellow-400 rounded hover:bg-yellow-300 hover:text-yellow-800"
+          onClick={(e) => {
+            e.preventDefault();
+            history.push('/register');
+          }}
         >
           Sign up
         </a>
