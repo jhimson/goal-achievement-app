@@ -3,57 +3,74 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useHistory, Link } from 'react-router-dom';
+
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
+import { useToasts } from 'react-toast-notifications';
 import logo from '../assets/images/login-register-logo.png';
 
-// ? components
+// ! COMPONENTS
 import Layout from '../components/Layout';
 import FlashMessage from '../components/FlashMessage';
+//! ----------------------------------------------------->
 
-// ? actions
+// ! ACTIONS
 import {
   registerNewUser,
   resetNewUserInfo,
 } from '../redux/actions/userActions';
+//! ----------------------------------------------------->
 
-// ? form validation schema
+// ! form validation schema
 const schema = yup.object().shape({
   firstname: yup.string().required('Firstname is required*'),
   lastname: yup.string().required('Lastname is required*'),
   username: yup.string().required('Username is required*'),
   password: yup.string().min(5).required('Password is required*'),
 });
+//! ----------------------------------------------------->
 
 const RegisterPage = () => {
+  const history = useHistory();
+  const { addToast } = useToasts();
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const dispatch = useDispatch();
-  // ? Global state (Store)
+  // ! Global state (Store)
   const error = useSelector((state) => state.userRegistered.error);
   const message = useSelector(
     (state) => state.userRegistered.userRegisteredInfo.message
   );
+  //! ----------------------------------------------------->
 
-  // ? Functions
+  // ! Functions
   const onSubmit = (data) => {
     dispatch(registerNewUser(data));
+    if (error) {
+      addToast(`${error}`, {
+        appearance: 'danger',
+        autoDismiss: true,
+      });
+    } else {
+      addToast(`Successfully created account`, {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      history.push(`/`);
+    }
     reset();
-    setTimeout(() => {
-      dispatch(resetNewUserInfo());
-    }, 5000);
   };
+  //! ----------------------------------------------------->
 
   return (
     <Layout active="registerPage">
       <div className="flex items-center justify-center h-screen">
         <div className="w-full h-auto p-5 bg-gray-200 rounded-lg md:w-3/4 lg:w-1/2 xl:w-1/4">
-          {error ? <FlashMessage type="danger" message={error} /> : null}
-          {message ? <FlashMessage type="success" message={message} /> : null}
-
           <div>
+            {error ? <FlashMessage type="danger" message={error} /> : null}
             <img src={logo} alt="" className="p-10 mb-10" />
           </div>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
