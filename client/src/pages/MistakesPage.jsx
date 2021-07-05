@@ -142,7 +142,7 @@ const MistakesPage = () => {
               />
             </div>
           ) : (
-            <table className="w-full bg-white rounded-lg shadow-lg table-auto border-1">
+            <table className="w-full bg-white rounded-lg shadow-lg table-fixed border-1">
               <thead>
                 <tr className="text-sm leading-normal text-center text-gray-600 uppercase bg-gray-200 lg:text-lg">
                   <th className="px-6 py-4 text-left bg-gray-200">
@@ -159,7 +159,7 @@ const MistakesPage = () => {
                       className="border-b border-gray-200 hover:bg-gray-100"
                       key={id}
                     >
-                      <td className="px-6 py-3 text-left cursor-pointer">
+                      <td className="px-6 py-3 text-left break-words cursor-pointer">
                         {description}
                       </td>
                       <td className="px-6 py-3 text-left cursor-pointer">
