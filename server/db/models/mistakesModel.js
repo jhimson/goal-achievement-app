@@ -13,7 +13,7 @@ const createNewMistake = (data) => {
 
 const findMistakesByUserId = (user_id) =>
   db.query({
-    text: `SELECT * FROM tbl_mistakes WHERE user_id = $1`,
+    text: `SELECT * FROM tbl_mistakes WHERE user_id = $1 ORDER BY created_at DESC`,
     values: [user_id],
   });
 

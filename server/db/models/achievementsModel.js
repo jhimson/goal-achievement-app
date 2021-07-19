@@ -12,7 +12,7 @@ const createNewAchievements = (data) => {
 
 const fetchAllAchievementsByUserId = (user_id) =>
   db.query({
-    text: `SELECT * FROM tbl_achievements WHERE user_id = $1`,
+    text: `SELECT * FROM tbl_achievements WHERE user_id = $1 ORDER BY created_at DESC`,
     values: [user_id],
   });
 

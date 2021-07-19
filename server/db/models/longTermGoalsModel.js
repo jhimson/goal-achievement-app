@@ -13,7 +13,7 @@ const createNewLongTermGoal = (data) => {
 
 const findLongTermGoalsByUserId = (user_id) =>
   db.query({
-    text: `SELECT * FROM tbl_long_term_goals WHERE user_id = $1`,
+    text: `SELECT * FROM tbl_long_term_goals WHERE user_id = $1 ORDER BY created_at DESC`,
     values: [user_id],
   });
 
