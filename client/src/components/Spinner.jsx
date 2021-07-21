@@ -9,7 +9,7 @@ const Spinner = ({ loading, type, height, width, color }) =>
       color={color || '#00BFFF'}
       height={height || 50}
       width={width || 100}
-      timeout={5000} // 3 secs
+      timeout={10000}
     />
   ) : null;
 
