@@ -13,7 +13,7 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
-import ConfirmDeleteLessonModal from '../components/ConfirmDeleteLessonModal';
+import Modal from '../components/Modal';
 import Spinner from '../components/Spinner';
 
 //! ----------------------------------------------------->
@@ -97,11 +97,14 @@ const LessonsPage = () => {
   return (
     <Layout active="lessonsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
-        <ConfirmDeleteLessonModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          deleteLesson={() => dispatch(deleteLesson(idToDelete))}
-        />
+        {isModalVisible ? (
+          <Modal
+            title="lesson"
+            isVisible={isModalVisible}
+            setIsVisible={setIsModalVisible}
+            deleteFunc={() => dispatch(deleteLesson(idToDelete))}
+          />
+        ) : null}
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-pink-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
