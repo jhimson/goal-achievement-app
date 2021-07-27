@@ -13,7 +13,6 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
-import ConfirmDeleteAchievementModal from '../components/ConfirmDeleteAchievementModal';
 import Modal from '../components/Modal';
 import Spinner from '../components/Spinner';
 
