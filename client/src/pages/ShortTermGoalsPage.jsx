@@ -15,7 +15,6 @@ import { IoTrash } from 'react-icons/io5';
 import { useToasts } from 'react-toast-notifications';
 
 import Layout from '../components/Layout';
-import ConfirmDeleteShortTermGoalModal from '../components/ConfirmDeleteShortTermGoalModal';
 import Modal from '../components/Modal';
 import Spinner from '../components/Spinner';
 //! ----------------------------------------------------->
