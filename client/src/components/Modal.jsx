@@ -6,8 +6,8 @@ const Modal = ({ title, isVisible, setIsVisible, deleteFunc }) => {
   const { addToast } = useToasts();
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-screen ml-auto mr-auto transition duration-300 bg-black border-4 broder-gray-500 bg-opacity-30 modal-bg">
-      <div className="w-11/12 h-auto p-5 bg-gray-100 rounded-lg lg:w-1/2 xl:w-5/12 modal-container">
-        <div className="font-mono text-lg font-bold text-center">
+      <div className="w-11/12 h-auto p-5 bg-gray-100 rounded-lg md:w-1/2 lg:w-1/2 xl:w-1/3 modal-container">
+        <div className="mb-5 font-mono text-lg font-bold text-center">
           <h1>Are you sure you want to delete?</h1>
         </div>
         <div>
