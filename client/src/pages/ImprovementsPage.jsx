@@ -13,7 +13,7 @@ import { IoTrash } from 'react-icons/io5';
 //! COMPONENTS
 import { useToasts } from 'react-toast-notifications';
 import Layout from '../components/Layout';
-import ConfirmDeleteImprovementModal from '../components/ConfirmDeleteImprovementModal';
+import Modal from '../components/Modal';
 import Spinner from '../components/Spinner';
 //! ----------------------------------------------------->
 
@@ -101,11 +101,14 @@ const ImprovementsPage = () => {
   return (
     <Layout active="improvementsPage">
       <div className="relative flex flex-col items-center min-h-full bg-gray-100">
-        <ConfirmDeleteImprovementModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          deleteImprovement={() => dispatch(deleteImprovement(idToDelete))}
-        />
+        {isModalVisible ? (
+          <Modal
+            title="improvement"
+            isVisible={isModalVisible}
+            setIsVisible={setIsModalVisible}
+            deleteFunc={() => dispatch(deleteImprovement(idToDelete))}
+          />
+        ) : null}
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
           <div className="h-auto p-5 bg-yellow-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
