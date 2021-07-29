@@ -7,7 +7,6 @@ import { ToastProvider } from 'react-toast-notifications';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Sidenav from './Sidenav';
-import Sidebar from './Sidebar';
 
 const Layout = ({ children, active }) => {
   // ! GLOBAL STATE VARIABLE (STORE)

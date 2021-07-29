@@ -163,9 +163,6 @@ const ShortTermGoalsPage = () => {
                 </tr>
               </thead>
               <tbody className="text-sm font-light text-gray-600 lg:text-lg">
-                {/* {shortTermGoalsIsLoading ? (
-                <Spinner loading={shortTermGoalsIsLoading} />
-              ) : null} */}
                 {shortTermGoals.length !== 0 ? (
                   shortTermGoals.map(({ id, description, created_at }) => (
                     <tr
