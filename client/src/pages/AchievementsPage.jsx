@@ -148,7 +148,7 @@ const AchievementsPage = () => {
               />
             </div>
           ) : (
-            <table className="w-full bg-white rounded-lg shadow-lg table-fixed border-1">
+            <table className="w-full bg-white rounded-lg shadow-lg table-fixed border-1 ">
               <thead>
                 <tr className="text-sm leading-normal text-center text-gray-600 uppercase bg-gray-200 lg:text-lg">
                   <th className="px-6 py-4 text-left bg-gray-200">
