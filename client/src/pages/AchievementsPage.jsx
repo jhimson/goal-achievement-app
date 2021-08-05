@@ -99,7 +99,7 @@ const AchievementsPage = () => {
   // ! -------------------------------------------->
   return (
     <Layout active="achievementsPage">
-      <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+      <div className="relative flex flex-col items-center min-h-full overflow-y-scroll bg-gray-100">
         {isModalVisible ? (
           <Modal
             title="achievement"

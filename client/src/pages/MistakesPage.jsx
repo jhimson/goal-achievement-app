@@ -97,7 +97,7 @@ const MistakesPage = () => {
   // ! -------------------------------------------->
   return (
     <Layout active="mistakesPage">
-      <div className="relative flex flex-col items-center min-h-full bg-gray-100">
+      <div className="relative flex flex-col items-center min-h-full overflow-y-scroll bg-gray-100">
         {isModalVisible ? (
           <Modal
             title="mistake"
