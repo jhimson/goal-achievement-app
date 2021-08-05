@@ -161,10 +161,10 @@ const LessonsPage = () => {
                       className="border-b border-gray-200 hover:bg-gray-100"
                       key={id}
                     >
-                      <td className="px-6 py-3 text-left break-words cursor-pointer">
+                      <td className="px-6 py-3 font-semibold text-left break-words cursor-pointer">
                         {description}
                       </td>
-                      <td className="px-6 py-3 text-left cursor-pointer">
+                      <td className="px-6 py-3 font-semibold text-left cursor-pointer">
                         {Moment(created_at).format('l')}
                       </td>
                       <td className="flex items-center justify-center h-12 text-red-500">
