@@ -24,6 +24,7 @@ import {
   addNewShortTermGoal,
   getShortTermGoals,
   deleteShortTermGoal,
+  toggleShortTermGoalIsComplete,
 } from '../redux/actions/shortTermGoalActions';
 // ! ------------------------------------------------------------------>
 
@@ -69,6 +70,9 @@ const ShortTermGoalsPage = () => {
   );
   const { success: deleteShortTermGoalSuccess } = deleteShortTermGoalData;
 
+  const isCompleteData = useSelector((state) => state.shortTermGoalCompleted);
+  const { success: toggleIsCompleteSuccess } = isCompleteData;
+
   // ! -------------------------------------------->
 
   // ! FUNCTIONS
@@ -90,6 +94,10 @@ const ShortTermGoalsPage = () => {
   useEffect(() => {
     dispatch(getShortTermGoals(userId));
   }, [dispatch, deleteShortTermGoalSuccess, userId]);
+
+  useEffect(() => {
+    dispatch(getShortTermGoals(userId));
+  }, [dispatch, toggleIsCompleteSuccess, userId]);
 
   const onSubmit = ({ goal }) => {
     dispatch(addNewShortTermGoal({ user_id: userId, description: goal }));
@@ -164,30 +172,37 @@ const ShortTermGoalsPage = () => {
               </thead>
               <tbody className="text-sm font-light text-gray-600 lg:text-lg">
                 {shortTermGoals.length !== 0 ? (
-                  shortTermGoals.map(({ id, description, created_at }) => (
-                    <tr
-                      className="border-b border-gray-200 hover:bg-gray-100"
-                      key={id}
-                    >
-                      <td className="px-6 py-3 font-semibold text-left break-words cursor-pointer">
-                        {description}
-                      </td>
-                      <td className="px-6 py-3 font-semibold text-left cursor-pointer">
-                        {Moment(created_at).format('l')}
-                      </td>
-                      <td className="flex items-center justify-center h-12 text-red-500">
-                        <span className="duration-200 transform cursor-pointer hover:scale-125">
-                          <IoTrash
-                            size="1.5em"
-                            onClick={() => {
-                              setIdToDelete(id);
-                              setIsModalVisible(!isModalVisible);
-                            }}
-                          />
-                        </span>
-                      </td>
-                    </tr>
-                  ))
+                  shortTermGoals.map(
+                    ({ id, description, created_at, is_complete }) => (
+                      <tr
+                        className="border-b border-gray-200 hover:bg-gray-100"
+                        key={id}
+                        onClick={() => {
+                          dispatch(
+                            toggleShortTermGoalIsComplete(id, is_complete)
+                          );
+                        }}
+                      >
+                        <td className="px-6 py-3 font-semibold text-left break-words cursor-pointer">
+                          {is_complete ? <s>{description}</s> : description}
+                        </td>
+                        <td className="px-6 py-3 font-semibold text-left cursor-pointer">
+                          {Moment(created_at).format('l')}
+                        </td>
+                        <td className="flex items-center justify-center h-12 text-red-500">
+                          <span className="duration-200 transform cursor-pointer hover:scale-125">
+                            <IoTrash
+                              size="1.5em"
+                              onClick={() => {
+                                setIdToDelete(id);
+                                setIsModalVisible(!isModalVisible);
+                              }}
+                            />
+                          </span>
+                        </td>
+                      </tr>
+                    )
+                  )
                 ) : (
                   <h1 className="p-2 text-lg text-gray-400 lg:text-2xl">
                     No short term goals found!

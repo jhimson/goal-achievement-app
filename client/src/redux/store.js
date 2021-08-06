@@ -43,6 +43,7 @@ const initialState = {
   lessonsList: { error: null, lessons: [] },
   lessonDeleted: { error: null, success: false, lesson: {} },
   totalLessons: { error: null, total: null },
+  shortTermGoalCompleted: { error: null, shortTermGoal: {}, success: false },
 };
 
 const store = createStore(

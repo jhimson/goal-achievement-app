@@ -7,6 +7,7 @@ import {
   shortTermGoalsListReducer,
   shortTermGoalDeleteReducer,
   totalShortTermGoalReducer,
+  shortTermGoalSetToCompleteReducer,
 } from './shortTermGoalsReducer';
 
 import {
@@ -72,6 +73,7 @@ const rootReducer = combineReducers({
   lessonsList: lessonsListReducer,
   lessonDeleted: removeLessonReducer,
   totalLessons: totalLessonsReducer,
+  shortTermGoalCompleted: shortTermGoalSetToCompleteReducer,
 });
 
 export default rootReducer;

@@ -7,6 +7,7 @@ const {
   findShortTermGoalsByUserId,
   destroyOneShortTermGoal,
   findTotalShortTermGoalsByUserId,
+  updateShortTermGoalIsComplete,
 } = require("../db/models/shortTermGoalsModel");
 
 // ? @Description    Insert new short term goal
@@ -71,9 +72,27 @@ const getTotalShortTermGoals = asyncHandler(async (req, res) => {
   }
 });
 
+// ? @Description    UPDATE Short term goal is_complete field
+// ? @Route          PUT /api/v1/short-term-goals/is_complete/:id
+// ? @Access         Private/User
+const editShortTermGoalIsComplete = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { is_complete } = req.body;
+  console.log("aw", req.body);
+  const { rows } = await updateShortTermGoalIsComplete(id, is_complete);
+
+  if (rows) {
+    res.status(200).json({ data: rows });
+  } else {
+    res.status(500);
+    throw new Error("Failed to update is complete field");
+  }
+});
+
 module.exports = {
   addNewShortTermGoal,
   getShortTermGoals,
   deleteShortTermGoal,
   getTotalShortTermGoals,
+  editShortTermGoalIsComplete,
 };

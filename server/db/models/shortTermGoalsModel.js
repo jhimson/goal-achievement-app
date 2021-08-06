@@ -28,9 +28,16 @@ const findTotalShortTermGoalsByUserId = (user_id) =>
     values: [user_id],
   });
 
+const updateShortTermGoalIsComplete = (id, is_complete) =>
+  db.query({
+    text: `UPDATE tbl_short_term_goals SET is_complete = $1 WHERE id = $2 returning *`,
+    values: [is_complete, id],
+  });
+
 module.exports = {
   createNewShortTermGoal,
   findShortTermGoalsByUserId,
   destroyOneShortTermGoal,
   findTotalShortTermGoalsByUserId,
+  updateShortTermGoalIsComplete,
 };

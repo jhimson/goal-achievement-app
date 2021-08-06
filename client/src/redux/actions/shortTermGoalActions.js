@@ -20,6 +20,9 @@ const {
   GET_TOTAL_SHORT_TERM_GOALS_REQUEST,
   GET_TOTAL_SHORT_TERM_GOALS_SUCCESS,
   GET_TOTAL_SHORT_TERM_GOALS_FAIL,
+  SET_SHORT_TERM_GOALS_TO_COMPLETE_REQUEST,
+  SET_SHORT_TERM_GOALS_TO_COMPLETE_SUCCESS,
+  SET_SHORT_TERM_GOALS_TO_COMPLETE_FAIL,
 } = shortTermGoalsConstants;
 
 export const addNewShortTermGoal = ({ user_id, description }) => async (
@@ -107,6 +110,35 @@ export const getTotalShortTermGoals = (user_id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_TOTAL_SHORT_TERM_GOALS_FAIL,
+      payload:
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
+          : error.message,
+    });
+  }
+};
+
+export const toggleShortTermGoalIsComplete = (id, is_complete) => async (
+  dispatch
+) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    dispatch({ type: SET_SHORT_TERM_GOALS_TO_COMPLETE_REQUEST });
+
+    const { data } = await Axios.patch(
+      `${process.env.REACT_APP_HOST}/api/v1/short-term-goals/is_complete/${id}`,
+      { is_complete: !is_complete },
+      config
+    );
+    dispatch({ type: SET_SHORT_TERM_GOALS_TO_COMPLETE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: SET_SHORT_TERM_GOALS_TO_COMPLETE_FAIL,
       payload:
         error.response && error.response.data.error.message
           ? error.response.data.error.message
