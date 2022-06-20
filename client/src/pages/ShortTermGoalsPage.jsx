@@ -122,7 +122,7 @@ const ShortTermGoalsPage = () => {
           />
         ) : null}
         <div className="w-full p-3 bg-gray-100 xl:p-10 lg:w-11/12 ">
-          <div className="h-auto p-5 bg-red-400 rounded shadow">
+          <div className="h-auto p-5 bg-blue-400 rounded shadow">
             <h2 className="mb-10 font-mono text-2xl font-extrabold text-center text-gray-800 md:text-4xl">
               Input short term goal
             </h2>

@@ -91,7 +91,7 @@ const DashboardPage = () => {
       <div className="grid p-5 mt-8 space-y-10 bg-gray-100 lg:space-y-0 lg:grid-cols-2 lg:p-5 lg:gap-3 xl:grid-cols-3">
         <InfoCard
           title="Short term goals"
-          color="red"
+          color="blue"
           total={
             totalCountOfShortTermGoals
               ? totalCountOfShortTermGoals.data[0].total_short_term_goals
@@ -117,7 +117,7 @@ const DashboardPage = () => {
         />
         <InfoCard
           title="Long term goals"
-          color="green"
+          color="blue"
           total={
             totalCountOfLongTermGoals
               ? totalCountOfLongTermGoals.data[0].total_long_term_goals
@@ -171,7 +171,7 @@ const DashboardPage = () => {
         />
         <InfoCard
           title="Needs to improve"
-          color="yellow"
+          color="blue"
           total={
             totalCountOfImprovements
               ? totalCountOfImprovements.data[0].total_improvements
@@ -203,7 +203,7 @@ const DashboardPage = () => {
         />
         <InfoCard
           title="Mistakes/Regrets"
-          color="indigo"
+          color="blue"
           total={
             totalCountOfMistakes
               ? totalCountOfMistakes.data[0].total_mistakes
@@ -229,7 +229,7 @@ const DashboardPage = () => {
         />
         <InfoCard
           title="Lesson learned"
-          color="pink"
+          color="blue"
           total={
             totalCountOfLessons ? totalCountOfLessons.data[0].total_lessons : 0
           }
