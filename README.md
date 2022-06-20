@@ -1,4 +1,4 @@
-# Goal-achievement-app
+# Goal Achievement App
 
 ### Technologies Used
 - HTML
